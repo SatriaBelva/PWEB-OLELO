@@ -15,4 +15,17 @@ class OwnerController{
         //     header('location: restricted');
         // }
     }
+
+    static function pesanan(){
+        view('owner/pesanan');
+    }
+    static function riwayat(){
+        view('owner/riwayat');
+    }
+    static function tambahmenu(){
+        view('owner/add_menu');
+    }
+    static function laporan(){
+        view('owner/laporan');
+    }
 }

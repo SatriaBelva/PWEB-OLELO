@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Pesanan - Toko Oleh-Oleh Madurasa</title>
-    <link rel="stylesheet" href="../css/style-owner.css">
+    <link rel="stylesheet" href="resource/views/css/style-owner.css">
     <link rel="stylesheet" href="/sidebar/style.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -16,31 +16,25 @@
         </div>
         <ul class="nav-list">
           <li>
-            <a href="dashboard.html">
-              <i class="bx bx-grid-alt"></i>
-              <div class="links_name">Dashboard</div>
-            </a>
-          </li>
-          <li>
-            <a href="menu.html">
+            <a href="<?=urlpath('menu-owner')?>">
               <i class="bx bx-compass"></i>
               <div class="links_name">Menu</div>
             </a>
           </li>
           <li>
-            <a href="pesanan.html">
+            <a href="<?=urlpath('pesanan-owner')?>">
               <i class="bx bx-cart-alt"></i>
               <div class="links_name">Pesanan</div>
             </a>
           </li>
           <li>
-            <a href="riwayat.html">
+            <a href="<?=urlpath('riwayat-owner')?>">
               <i class="bx bx-bar-chart-alt-2 icon"></i>
               <div class="links_name">Riwayat Pesanan</div>
             </a>
           </li>
           <li>
-            <a href="laporan.html">
+            <a href="<?=urlpath('laporan-owner')?>">
               <i class="bx bx-line-chart"></i>
               <div class="links_name">Laporan</div>
             </a>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Pesanan - Toko Oleh-Oleh Madurasa</title>
-    <link rel="stylesheet" href="../css/style-karyawan.css">
+    <link rel="stylesheet" href="resource/views/css/style-karyawan.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -15,25 +15,25 @@
         </div>
         <ul class="nav-list">
           <li>
-            <a href="/menu/menu.html">
+            <a href="<?=urlpath('menu-karyawan')?>">
               <i class="bx bx-compass"></i>
               <div class="links_name">Menu</div>
             </a>
           </li>
           <li>
-            <a href="/pesanan/pesanan.html">
+            <a href="<?=urlpath('pesanan-karyawan')?>">
               <i class="bx bx-cart-alt"></i>
               <div class="links_name">Pesanan</div>
             </a>
           </li>
           <li>
-            <a href="/riwayat/riwayat.html">
+            <a href="<?=urlpath('riwayat-karyawan')?>">
               <i class="bx bx-bar-chart-alt-2 icon"></i>
               <div class="links_name">Riwayat Pesanan</div>
             </a>
           </li>
           <li>
-            <a href="/laporan/laporan.html">
+            <a href="<?=urlpath('laporan-karyawan')?>">
               <i class="bx bx-line-chart"></i>
               <div class="links_name">Laporan</div>
             </a>

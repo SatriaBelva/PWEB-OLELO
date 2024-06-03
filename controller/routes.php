@@ -15,10 +15,18 @@ Router::url('register', 'post', 'AuthController::newRegister');
 Router::url('logout', 'get', 'AuthController::logout');
 
 //dashboard Owner
-Router::url('menu', 'get', 'OwnerController::index');
+Router::url('menu-owner', 'get', 'OwnerController::index');
+Router::url('pesanan-owner', 'get', 'OwnerController::pesanan');
+Router::url('riwayat-owner', 'get', 'OwnerController::riwayat');
+Router::url('tambahmenu-owner', 'get', 'OwnerController::tambahmenu');
+Router::url('laporan-owner', 'get', 'OwnerController::laporan');
 
 //dashboard Karyawan
-Router::url('menu', 'get', 'KaryawanController::index');
+Router::url('menu-karyawan', 'get', 'KaryawanController::index');
+Router::url('pesanan-karyawan', 'get', 'KaryawanController::pesanan');
+Router::url('riwayat-karyawan', 'get', 'KaryawanController::riwayat');
+Router::url('tambahmenu-karyawan', 'get', 'OwnerController::tambahmenu');
+Router::url('laporan-karyawan', 'get', 'KaryawanController::laporan');
 
 // dashboard Customer
 Router::url('menu', 'get', 'CustomerController::index');

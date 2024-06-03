@@ -15,4 +15,17 @@ class KaryawanController{
         //     header('location: restricted');
         // }
     }
+
+    static function pesanan(){
+        view('karyawan/pesanan');
+    }
+    static function riwayat(){
+        view('karyawan/riwayat');
+    }
+    static function tambahmenu(){
+        view('karyawan/add_menu');
+    }
+    static function laporan(){
+        view('karyawan/laporan');
+    }
 }

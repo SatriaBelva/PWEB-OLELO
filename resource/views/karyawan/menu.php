@@ -17,25 +17,25 @@
       <ul class="nav-list">
 
         <li>
-          <a href="/menu/menu.html">
+          <a href="<?=urlpath('menu-karyawan')?>">
             <i class="bx bx-compass"></i>
             <div class="links_name">Menu</div>
           </a>
         </li>
         <li>
-          <a href="/pesanan/pesanan.html">
+          <a href="<?=urlpath('pesanan-karyawan')?>">
             <i class="bx bx-cart-alt"></i>
             <div class="links_name">Pesanan</div>
           </a>
         </li>
         <li>
-          <a href="/riwayat/riwayat.html">
+          <a href="<?=urlpath('riwayat-karyawan')?>">
             <i class="bx bx-bar-chart-alt-2 icon"></i>
             <div class="links_name">Riwayat Pesanan</div>
           </a>
         </li>
         <li>
-          <a href="/laporan/laporan.html">
+          <a href="<?=urlpath('laporan-karyawan')?>">
             <i class="bx bx-line-chart"></i>
             <div class="links_name">Laporan</div>
           </a>
@@ -59,7 +59,9 @@
           <p id="current-date"></p>
         <header>
           <h1>Daftar Menu OLELO</h1>
-          <button id="tambah-menu-btn">Tambah Menu</button>
+          <a href="<?=urlpath('tambahmenu-karyawan')?>">
+            <button id="tambah-menu-btn">Tambah Menu</button>
+          </a>
         </header>
         
         <table class="menu-table">

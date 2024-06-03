@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tambah Data Menu OLELO</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resource/views/css/style-owner.css" />
   </head>
   <body>
     <div class="modal">
@@ -41,7 +41,9 @@
             <label for="stok">Stok</label>
             <input type="number" id="stok" name="stok" required />
           </div>
-          <button type="submit">Simpan</button>
+          <a href="<?=urlpath('menu-owner')?>">
+            <button type="submit">Simpan</button>
+          </a>
         </form>
       </div>
     </div>

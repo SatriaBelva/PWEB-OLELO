@@ -58,19 +58,19 @@ class AuthController {
             unset($user['password']);
             if($user['role_id'] == '1'){
                 $_SESSION['user'] = $user;
-                header('Location: menu');
+                header('Location: menu-owner');
             }
             elseif($user['role_id'] == '2'){
                 $_SESSION['user'] = $user;
-                header('Location: menu');
+                header('Location: menu-karyawan');
             }
             elseif($user['role_id'] == '3'){
                 $_SESSION['user'] = $user;
                 header('Location: menu');
             }
         }
-        // else {
-        //     header('Location: '.BASEURL.'login?failed=true');
-        // }
+        else {
+            header('Location: '.BASEURL.'login?failed=true');
+        }
     }
 }
