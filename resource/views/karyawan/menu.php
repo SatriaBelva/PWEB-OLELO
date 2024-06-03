@@ -1,3 +1,36 @@
+<?php
+// Koneksi ke database
+require_once 'app/config/env.php';
+
+$host     = $_ENV['DB_HOST'];
+$username = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
+$database = $_ENV['DB_NAME'];
+
+$conn = new mysqli($host, $username, $password, $database);
+
+// Periksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel menu
+$sql = "SELECT * FROM menu";
+$result = $conn->query($sql);
+
+// Menyimpan hasil query ke dalam array
+$data = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+}
+
+// Tutup koneksi
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +102,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama Menu</th>
-                        <!-- <th>Gambar</th> -->
                         <th>Harga</th>
                         <th>Deskripsi</th>
                         <th>Stok</th>
@@ -78,27 +110,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (isset($menus) && is_array($menus)): ?>
-                        <?php foreach ($menus as $menu): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($menu['id']) ?></td>
-                                <td><?= htmlspecialchars($menu['nama']) ?></td>
-                                <!-- <td><img src="" alt="" width="100"></td> -->
-                                <td><?= htmlspecialchars($menu['harga']) ?></td>
-                                <td><?= htmlspecialchars($menu['deskripsi']) ?></td>
-                                <td><?= htmlspecialchars($menu['jumlah_stok']) ?></td>
-                                <td><?= htmlspecialchars($menu['kategori']) ?></td>
-                                <td>
-                                    <a href="<?= urlpath('menu-karyawan/edit/' . htmlspecialchars($menu['id'])) ?>"><i class="fas fa-edit"></i></a>
-                                    <a href="<?= urlpath('menu-karyawan/delete/' . htmlspecialchars($menu['id'])) ?>"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
+                    <?php foreach ($data as $row) : ?>
                         <tr>
-                            <td colspan="8">Tidak ada menu yang tersedia.</td>
-                        </tr>
-                    <?php endif; ?>
+                        <td> <?php echo htmlspecialchars($row['Id_menu']) ?> </td>
+                        <td> <?php echo htmlspecialchars($row['nama'])?></td>
+                        <td> <?php echo htmlspecialchars($row['harga'])?></td>
+                        <td> <?php echo htmlspecialchars($row['Deskripsi'])?></td>
+                        <td> <?php echo htmlspecialchars($row['Jumlah_stok'])?></td>
+                        <td> <?php echo htmlspecialchars($row['kategori'])?></td>
+                        <td>    
+                            <a href="<?= urlpath('editmenu-karyawan')?>"><i class='fas fa-edit'></i></a>
+                            <!-- <a href=""><i class='fas fa-trash-alt'></i></a> -->
+                        </td>
+                    <?php endforeach; ?>        
                 </tbody>
             </table>
         </div>

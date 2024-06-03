@@ -29,6 +29,8 @@ Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::tambahmenu');
 Router::url('laporan-karyawan', 'get', 'KaryawanController::laporan');
 Router::url('tambahmenu-karyawan', 'post', 'KaryawanController::addMenu');
 Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::addMenu');
+Router::url('editmenu-karyawan', 'post', 'KaryawanController::editMenu');
+Router::url('editmenu-karyawan', 'get', 'KaryawanController::updateMenu');
 
 
 // dashboard Customer

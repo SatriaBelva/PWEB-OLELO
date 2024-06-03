@@ -12,9 +12,6 @@ class KaryawanController{
         if ($user_role == '2'){
             view('karyawan/menu', ['url' => 'menu']);
         }
-        // else{
-        //     header('location: restricted');
-        // }
     }
 
     static function pesanan(){
@@ -29,6 +26,37 @@ class KaryawanController{
     static function laporan(){
         view('karyawan/laporan');
     }
+    static function editMenu() {
+        $menu = Menu::getMenuById();
+        if ($menu) {
+            view('karyawan/edit_menu', ['menu' => $menu]);
+        } else {
+            // Tampilkan pesan jika menu tidak ditemukan
+            echo "Menu tidak ditemukan.";
+        }
+    }
+
+     static function saveEdit() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: '.BASEURL.'login?auth=false');
+            exit;
+        }
+        else {
+            $post = array_map('htmlspecialchars', $_POST);
+            $contact = Contact::update([
+                'id' => $_GET['id'],
+                'phone_number' => $post['phone_number'],
+                'owner' => $post['owner'],
+                'city_fk' => $post['city']
+            ]);
+            if ($contact) {
+                header('Location: '.BASEURL.'dashboard/contacts');
+            }
+            else {
+                header('Location: '.BASEURL.'contacts/edit?id='.$_GET['id'].'&editFailed=true');
+            }
+        }
+    }
 
     static function addMenu() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,16 +66,7 @@ class KaryawanController{
             $deskripsi = $_POST['deskripsi'];
             $Jumlah_stok = $_POST['Jumlah_stok'];
             
-            // Handle file upload
-            // $gambar = '';
-            // if (isset($_FILES['gambar-produk']) && $_FILES['gambar-produk']['error'] === UPLOAD_ERR_OK) {
-            //     $gambarDir = 'uploads/';
-            //     $gambar = $gambarDir . basename($_FILES['gambar-produk']['name']);
-            //     move_uploaded_file($_FILES['gambar-produk']['tmp_name'], $gambar);
-            // }
-
-            // var_dump($namaMenu, $kategori, $harga, $deskripsi, $stok);
-
+            
             // Simpan data ke database menggunakan model
             if (Menu::saveMenu($nama, $deskripsi, $Jumlah_stok, $harga, $kategori)) {
                 echo "Data berhasil disimpan.";
@@ -62,9 +81,35 @@ class KaryawanController{
             view('karyawan/add_menu', ['url' => 'menu-karyawan']);
         }
     }
-    
-    public static function listMenus() {
-        $menus = Menu::getAllMenus();
-        view('karyawan/menu', ['menus' => $menus]);
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Handle file upload
+// $gambar = '';
+// if (isset($_FILES['gambar-produk']) && $_FILES['gambar-produk']['error'] === UPLOAD_ERR_OK) {
+//     $gambarDir = 'uploads/';
+//     $gambar = $gambarDir . basename($_FILES['gambar-produk']['name']);
+//     move_uploaded_file($_FILES['gambar-produk']['tmp_name'], $gambar);
+// }
+
+// var_dump($namaMenu, $kategori, $harga, $deskripsi, $stok);

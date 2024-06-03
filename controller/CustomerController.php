@@ -1,6 +1,7 @@
 <?php
 
 include_once('C:/PWEB/olelo/models/user.php');
+include_once('C:/PWEB/olelo/models/customer.php');
 include_once 'function/main.php';
 include_once 'app/config/static.php';
 
@@ -21,4 +22,5 @@ class CustomerController{
     static function riwayatcustomer(){
         view('customer/riwayatcustomer');
     }
+
 }

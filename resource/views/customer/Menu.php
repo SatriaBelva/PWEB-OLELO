@@ -1,3 +1,35 @@
+<?php
+// Koneksi ke database
+require_once 'app/config/env.php';
+
+$host     = $_ENV['DB_HOST'];
+$username = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
+$database = $_ENV['DB_NAME'];
+
+$conn = new mysqli($host, $username, $password, $database);
+
+// Periksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel menu
+$sql = "SELECT * FROM menu";
+$result = $conn->query($sql);
+
+// Menyimpan hasil query ke dalam array
+$data = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+}
+
+// Tutup koneksi
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +38,17 @@
     <title>Toko Oleh-Oleh Madurasa</title>
     <link rel="stylesheet" href="resource/views/css/styles-customer.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+    .menu-item:hover {
+        background-color: lightgray;
+        cursor: pointer;
+    }
+
+    .menu-item:active {
+        transform: scale(0.95); /* Efek scaling ketika menu di-klik */
+    }
+</style>
+
 </head>
 <body>
     <div class="container">
@@ -57,91 +100,37 @@
                 <h1>Toko Oleh-Oleh Madurasa</h1>
                 <p>Sunday, June 20 2021</p>
                 <h2>Pilih Menu</h2>
-                <div style="display: flex; justify-content: center;">
+                <!-- <div style="display: flex; justify-content: center;">
                     <div class="tabs">
                         <a href="tab active" class="tab active">Semua</a>
                         <a href="V_JajananBasah.html" class="tab">Jajanan Basah</a>
                         <a href="V_JajananKering.html" class="tab">Jajanan Kering</a>
                     </div>
-                </div>
+                </div> -->
             </header>
             <section class="menu-items">
-                <div class="menu-item">
-                    <img src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/akurat/gallery/2021/10/big/gal_615e9a208197b3-16279292-41158991.jpg" alt="Prol Tape">
-                    <h2>Prol Tape</h2>
-                    <p>Rp. 50.000</p>
-                    <p2>Memiliki bahan dasar tape yang diolah menggunakan paduan tepung maizena dengan toping keju mozarela</p2>
+                <?php foreach ($data as $row): ?>
+                <div class="menu-item" style="text-align:left;">
+                    <h2> <?php echo htmlspecialchars($row['nama'])?> </h2>
+                    <p>Rp<?php echo htmlspecialchars($row['harga'])?></p>
+                    <p2> <?php echo htmlspecialchars($row['kategori'])?></p2>
                 </div>
-                <div class="menu-item">
-                    <img src="https://carica.id/wp-content/uploads/2022/01/JenangWaluh-200x135.jpg" alt="Jenang Waloh">
-                    <h2>Jenang Waloh</h2>
-                    <p>Rp. 30.000</p>
-                    <p2>Labu kuning yang memiliki khasiat tinggi dan rendah kalori diolah dalam bentuk labu</p2>
-                </div>
-                <div class="menu-item">
-                    <img src="https://salsawisata.com/wp-content/uploads/2023/03/Edamame.jpg" alt="Jenang Waloh">
-                    <h2>Edamame</h2>
-                    <p>Rp. 25.000</p>
-                    <p2>Dibuat dengan edamame pilihan yang disangrai dan diolah menggunaakn bumbu rempah-rempah</p2>
-                </div>
-                <div class="menu-item">
-                    <img src="https://salsawisata.com/wp-content/uploads/2023/03/Olahan-Kopi-dan-Kakao.jpg" alt="Jenang Waloh">
-                    <h2>Brownis Kopi</h2>
-                    <p>Rp. 60.000</p>
-                    <p2>Brownis spesial dengan ciri khas kopi rengganis jember yang memiliki kadar manis pas dan nagih</p2>
-                </div>
-                <div class="menu-item">
-                    <img src="https://scontent.fbwx2-1.fna.fbcdn.net/v/t1.6435-9/88096514_852171608543232_2955276677510332416_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=LhiG7hLwe8gQ7kNvgFm2tdW&_nc_ht=scontent.fbwx2-1.fna&oh=00_AYCYvfLvl09gQ5a-ZrPCXl7aZxyMrmA_jobLgajWa1bIvA&oe=66712FA5" alt="Jenang Waloh">
-                    <h2>Pia Edamame</h2>
-                    <p>Rp. 45.000</p>
-                    <p2>Perpaduan edamame dengan tepung pilihan yang diolah menjadi pia bercita rasa khas dengan beberapa toping</p2>
-                </div>
-                <div class="menu-item">
-                    <img src="https://salsawisata.com/wp-content/uploads/2023/03/Pia-Tape.jpg" alt="Jenang Waloh">
-                    <h2>Pia Tape</h2>
-                    <p>Rp. 20.000</p>
-                    <p2>kreasi kuliner yang menawarkan sensasi rasa yang luar biasa dalam setiap gigitannya dengan bahan dasar adonan pastry yang tipis dan lembut</p2>
-                </div>
-                <div class="menu-item">
-                    <img src="https://salsawisata.com/wp-content/uploads/2023/03/Brownies-Tape.jpg" alt="Jenang Waloh">
-                    <h2>Coklat D'Jember</h2>
-                    <p>Rp. 50.000</p>
-                    <p2>Cokelat D'Jember, perwujudan kemewahan rasa yang dihasilkan dari biji kakao pilihan. Dibuat dengan cinta dan keahlian tinggi dengan berbagai variasi rasa pilihan</p2>
-                </div>
-                <div class="menu-item">
-                    <img src="https://salsawisata.com/wp-content/uploads/2023/03/Suwar-Suwir.jpg" alt="Jenang Waloh">
-                    <h2>Suwar-suwir</h2>
-                    <p>Rp. 32.000</p>
-                    <p2>Olahan tape yang diproses menjadi camilan dengan cita rasa khas </p2>
-                </div>
+                <?php endforeach; ?>
             </section>
         </main>
-        <section class="order-summary">
-            <h2>Membuat Pesanan</h2>
-            <div class="order-list">
-                <p>Prol Tape</p>
-                <input type="number" value="2">
-                <p>Rp. 70.000</p>
-            </div>
-            <div class="order-list">
-                <p>Pia Tape</p>
-                <input type="number" value="2">
-                <p>Rp. 70.000</p>
-            </div>
-            <div class="order-list">
-                <p>Dodol Tape</p>
-                <input type="number" value="1">
-                <p>Rp. 12.000</p>
-            </div>
-            <div class="total">
-                <p>Total Menu: 5</p>
-                <p>Subtotal untuk Produk: Rp. 152.000</p>
-                <p>Total Pembayaran: Rp. 152.000</p>
-            </div>
-            <button class="order-button">Pesan</button>
-            <button class="cancel-button">Batal</button>
-        </section>
-        <!-- <section class="order-summary">
+            <section class="order-summary" style="display:none;"> <!-- Menambahkan inline style untuk menyembunyikan order-summary -->
+                <h2>Membuat Pesanan</h2>
+                <div class="order-list">
+                </div>
+                <div class="total">
+                    <p>Total Menu: 0</p>
+                    <p>Subtotal untuk Produk: Rp. 0</p>
+                    <p>Total Pembayaran: Rp. 0</p>
+                </div>
+                <button class="order-button">Pesan</button>
+                <button class="cancel-button">Batal</button>
+            </section>
+<!-- <section class="order-summary">
             <h2>Membuat Pesanan</h2>
             <div class="order-details">
                 <h3>Menu di pesan</h3>
@@ -155,8 +144,42 @@
             <button class="order-button">Pesan</button>
             <button class="cancel-button">Batal</button>
         </section> -->
-    </div>
+</div>
     <script src="/sidebar/script.js"></script>
     <script src="/Costumer/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var menuItems = document.querySelectorAll('.menu-item');
+        var orderList = document.querySelector('.order-list');
+        var cancelButton = document.querySelector('.cancel-button');
+        var orderSummary = document.querySelector('.order-summary'); // Menambahkan variabel untuk elemen order-summary
+
+        menuItems.forEach(function (menuItem) {
+            menuItem.addEventListener('click', function () {
+                var itemName = menuItem.querySelector('h2').innerText;
+                var itemPrice = menuItem.querySelector('p').innerText;
+                var newItem = document.createElement('div');
+                newItem.innerHTML = '<p>' + itemName + '</p>' +
+                    '<input type="number" value="1" onchange="updateTotal(this, ' + itemPrice.slice(3) + ')">' + // Memanggil fungsi updateTotal saat jumlah barang diubah
+                    '<p id="price-per-pcs">' + itemPrice + '</p>'; // Menambahkan id untuk memperbarui harga per pcs
+                orderList.appendChild(newItem);
+                orderSummary.style.display = 'block'; // Menampilkan order-summary setelah pengguna memilih menu
+            });
+        });
+
+        cancelButton.addEventListener('click', function () {
+            orderList.innerHTML = ''; // Menghapus semua elemen dalam bagian pemesanan
+            orderSummary.style.display = 'none'; // Menyembunyikan order-summary saat pembatalan
+        });
+    });
+
+    function updateTotal(input, hargaPerPcs) {
+        var qty = input.value;
+        var totalPrice = qty * hargaPerPcs;
+        var pricePerPcs = input.parentElement.querySelector('#price-per-pcs'); // Mendapatkan elemen harga per pcs
+        pricePerPcs.innerText = 'Rp' + hargaPerPcs.toFixed(2) + '/pcs'; // Memperbarui teks harga per pcs
+        input.parentElement.querySelector('p:last-child').innerText = 'Rp' + totalPrice.toFixed(2); // Memperbarui teks total harga
+    }
+    </script>
 </body>
 </html>
