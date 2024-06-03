@@ -1,0 +1,81 @@
+.container{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.container h1{
+    margin-top: 25px;
+    margin-bottom: 20px;
+
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.date-filter button {
+    margin-top: 20px;
+    background-color: #E0E7FF;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.date-filter button:hover {
+    background-color: #CBD5E1;
+}
+
+.summary {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-right: 20px;
+    flex: 1;
+    text-align: center;
+}
+
+.summary-item h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.order-table th {
+    background-color: #E0E7FF;
+}
+
+.order-table tbody tr:hover {
+    background-color: #F1F5F9;
+}
+
+.order-table td:last-child {
+    text-align: center;
+    color: #50D1AA;
+    font-weight: bold;
+}

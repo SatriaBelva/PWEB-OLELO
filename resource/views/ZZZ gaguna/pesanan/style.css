@@ -1,0 +1,78 @@
+.container {
+    margin-left: 20px;
+    margin-right: 20px;
+    transition: margin-left 0.5s; 
+}
+.container h1 {
+    margin-right: 20px;
+    transition: margin-left 0.5s; 
+}
+.order-list h2 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.order {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.order-items {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.order-item img {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.item-details p {
+    margin-bottom: 5px;
+}
+
+.order-footer {
+    
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.order-footer p {
+    display: flex;
+    font-weight: bold;
+}
+
+.confirm {
+    background-color: #ffef70;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.reject {
+    background-color: #ff6b6b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}

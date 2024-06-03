@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    display: flex;
+    background-color: #E5E5FF;
+}
+
+.container {
+    margin-left: 20px;
+    margin-right: 20px;
+    justify-content: space-between;
+}
+
+.container h1{
+    margin-top: 25px;
+    margin-bottom: 20px;
+
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+}
+
+.filters label {
+    margin-right: 10px;
+}
+
+.filters select, .filters button {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.filters button.download {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.filters button.download:hover {
+    background-color: #45a049;
+}
+
+.charts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.chart {
+    width: 48%;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.best-seller {
+    width: 100%; 
+    
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+.best-seller h2 {
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.best-seller ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.best-seller ul li {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
