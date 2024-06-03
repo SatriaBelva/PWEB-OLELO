@@ -25,8 +25,11 @@ Router::url('laporan-owner', 'get', 'OwnerController::laporan');
 Router::url('menu-karyawan', 'get', 'KaryawanController::index');
 Router::url('pesanan-karyawan', 'get', 'KaryawanController::pesanan');
 Router::url('riwayat-karyawan', 'get', 'KaryawanController::riwayat');
-Router::url('tambahmenu-karyawan', 'get', 'OwnerController::tambahmenu');
+Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::tambahmenu');
 Router::url('laporan-karyawan', 'get', 'KaryawanController::laporan');
+Router::url('tambahmenu-karyawan', 'post', 'KaryawanController::addMenu');
+Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::addMenu');
+
 
 // dashboard Customer
 Router::url('menu', 'get', 'CustomerController::index');
