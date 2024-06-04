@@ -23,4 +23,31 @@ class CustomerController{
         view('customer/riwayatcustomer');
     }
 
+    static function ordercustomer(){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $items = isset($_POST['items']) ? $_POST['items'] : [];
+        $totalMenu = isset($_POST['totalMenu']) ? $_POST['totalMenu'] : 0;
+        $totalPayment = isset($_POST['totalPayment']) ? $_POST['totalPayment'] : 0;
+
+        // Instantiate OrderModel
+        $orderModel = new OrderModel();
+
+        // Loop through items and prepare data
+        $orderData = [];
+        foreach ($items as $item) {
+            list($name, $price) = explode('|', $item);
+            $orderData[] = ['name' => $name, 'price' => $price];
+        }
+
+        // Save order to database
+        $orderModel->saveOrder($orderData, $totalMenu, $totalPayment);
+
+        // Clear the session order data
+        unset($_SESSION['order']);
+
+        // Redirect to a success page
+        header('Location: menu');
+        exit;
+        }
+    }
 }

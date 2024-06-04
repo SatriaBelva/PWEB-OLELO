@@ -28,4 +28,28 @@ class OwnerController{
     static function laporan(){
         view('owner/laporan');
     }
+
+    static function addMenuOwner() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nama = $_POST['nama'];
+            $kategori = $_POST['kategori'];
+            $harga = $_POST['harga'];
+            $deskripsi = $_POST['deskripsi'];
+            $Jumlah_stok = $_POST['Jumlah_stok'];
+            
+            
+            // Simpan data ke database menggunakan model
+            if (Menu::saveMenu($nama, $deskripsi, $Jumlah_stok, $harga, $kategori)) {
+                echo "Data berhasil disimpan.";
+            } else {
+                echo "Data gagal disimpan.";
+            }
+            
+            // Redirect ke halaman lain setelah menyimpan data
+            header('Location: menu-owner');
+        } else {
+            // Tampilkan form tambah menu jika metode bukan POST
+            view('karyawan/add_menu', ['url' => 'menu-karyawan']);
+        }
+    }
 }

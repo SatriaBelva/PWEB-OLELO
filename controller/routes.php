@@ -20,6 +20,7 @@ Router::url('pesanan-owner', 'get', 'OwnerController::pesanan');
 Router::url('riwayat-owner', 'get', 'OwnerController::riwayat');
 Router::url('tambahmenu-owner', 'get', 'OwnerController::tambahmenu');
 Router::url('laporan-owner', 'get', 'OwnerController::laporan');
+Router::url('tambahmenu-owner', 'post', 'OwnerController::addMenuOwner');
 
 //dashboard Karyawan
 Router::url('menu-karyawan', 'get', 'KaryawanController::index');
@@ -27,8 +28,8 @@ Router::url('pesanan-karyawan', 'get', 'KaryawanController::pesanan');
 Router::url('riwayat-karyawan', 'get', 'KaryawanController::riwayat');
 Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::tambahmenu');
 Router::url('laporan-karyawan', 'get', 'KaryawanController::laporan');
-Router::url('tambahmenu-karyawan', 'post', 'KaryawanController::addMenu');
-Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::addMenu');
+Router::url('tambahmenus-karyawan', 'post', 'KaryawanController::addMenu');
+// Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::addMenu');
 Router::url('editmenu-karyawan', 'post', 'KaryawanController::editMenu');
 Router::url('editmenu-karyawan', 'get', 'KaryawanController::updateMenu');
 
@@ -37,6 +38,7 @@ Router::url('editmenu-karyawan', 'get', 'KaryawanController::updateMenu');
 Router::url('menu', 'get', 'CustomerController::index');
 Router::url('pesanan', 'get', 'CustomerController::pesanan');
 Router::url('riwayatcustomer', 'get', 'CustomerController::riwayatcustomer');
+Router::url('order', 'post', 'CustomerController::ordercustomer');
 
 Router::url('/', 'get', function () {
     header('Location: index');

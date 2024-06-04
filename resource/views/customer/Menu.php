@@ -28,6 +28,30 @@ if ($result->num_rows > 0) {
 
 // Tutup koneksi
 $conn->close();
+
+// Inisialisasi pesanan jika belum ada
+if (!isset($_SESSION['order'])) {
+    $_SESSION['order'] = array();
+}
+
+// Fungsi untuk menambahkan item ke pesanan
+function addItemToOrder($name, $price) {
+    $_SESSION['order'][] = array('name' => $name, 'price' => $price);
+}
+
+// Fungsi untuk mendapatkan total jumlah dan total pembayaran
+function getOrderSummary() {
+    $totalMenu = count($_SESSION['order']);
+    $totalPayment = array_sum(array_column($_SESSION['order'], 'price'));
+    return array('totalMenu' => $totalMenu, 'totalPayment' => $totalPayment);
+}
+
+// Saat menambahkan item ke pesanan
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['nama']) && isset($_POST['harga'])) {
+        addItemToOrder($_POST['nama'], $_POST['harga']);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -39,16 +63,27 @@ $conn->close();
     <link rel="stylesheet" href="resource/views/css/styles-customer.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <style>
-    .menu-item:hover {
-        background-color: lightgray;
-        cursor: pointer;
-    }
-
-    .menu-item:active {
-        transform: scale(0.95); /* Efek scaling ketika menu di-klik */
-    }
-</style>
-
+        .menu-item:hover {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+        .menu-item:active {
+            transform: scale(0.95); /* Efek scaling ketika menu di-klik */
+        }
+        .order-list div {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 5px 0;
+        }
+        .order-list p {
+            margin: 0;
+        }
+        .order-list input[type="number"] {
+            width: 50px;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -91,95 +126,127 @@ $conn->close();
                       </div>
                     </div>
                     <i class='bx bx-log-out' id="log_out"></i>
-                  </li>
-                </ul>
-              </div>
+                </li>
+            </ul>
+        </div>
     
         <main class="content">
             <header class="header">
                 <h1>Toko Oleh-Oleh Madurasa</h1>
                 <p>Sunday, June 20 2021</p>
                 <h2>Pilih Menu</h2>
-                <!-- <div style="display: flex; justify-content: center;">
-                    <div class="tabs">
-                        <a href="tab active" class="tab active">Semua</a>
-                        <a href="V_JajananBasah.html" class="tab">Jajanan Basah</a>
-                        <a href="V_JajananKering.html" class="tab">Jajanan Kering</a>
-                    </div>
-                </div> -->
             </header>
             <section class="menu-items">
                 <?php foreach ($data as $row): ?>
-                <div class="menu-item" style="text-align:left;">
+                <div class="menu-item" style="text-align:left;" data-nama="<?php echo htmlspecialchars($row['nama']); ?>" data-harga="<?php echo htmlspecialchars($row['harga']); ?>" data-kategori="<?php echo htmlspecialchars($row['kategori']); ?>">
                     <h2> <?php echo htmlspecialchars($row['nama'])?> </h2>
-                    <p>Rp<?php echo htmlspecialchars($row['harga'])?></p>
-                    <p2> <?php echo htmlspecialchars($row['kategori'])?></p2>
+                    <p>Rp<?php echo htmlspecialchars($row['harga'])?>/pcs</p>
+                    <p> <?php echo htmlspecialchars($row['kategori'])?></p>
                 </div>
                 <?php endforeach; ?>
             </section>
         </main>
-            <section class="order-summary" style="display:none;"> <!-- Menambahkan inline style untuk menyembunyikan order-summary -->
-                <h2>Membuat Pesanan</h2>
-                <div class="order-list">
-                </div>
-                <div class="total">
-                    <p>Total Menu: 0</p>
-                    <p>Subtotal untuk Produk: Rp. 0</p>
-                    <p>Total Pembayaran: Rp. 0</p>
-                </div>
-                <button class="order-button">Pesan</button>
-                <button class="cancel-button">Batal</button>
-            </section>
-<!-- <section class="order-summary">
+        <section class="order-summary">
             <h2>Membuat Pesanan</h2>
-            <div class="order-details">
-                <h3>Menu di pesan</h3>
-                <ul id="order-list"></ul>
+            <form id="order-form" action="<?=urlpath('order')?>" method="POST">
+                <div class="order-list">
+                    <!-- Pesanan akan ditampilkan di sini -->
+                </div>
                 <div class="total">
                     <p>Total Menu: <span id="total-menu">0</span></p>
-                    <p>Subtotal Untuk Produk: Rp. <span id="subtotal">0</span></p>
                     <p>Total Pembayaran: Rp. <span id="total-payment">0</span></p>
                 </div>
-            </div>
-            <button class="order-button">Pesan</button>
+                <button type="submit" class="order-button">Pesan</button>
+            </form>
             <button class="cancel-button">Batal</button>
-        </section> -->
-</div>
+        </section>
+    </div>
+
     <script src="/sidebar/script.js"></script>
     <script src="/Costumer/script.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var menuItems = document.querySelectorAll('.menu-item');
-        var orderList = document.querySelector('.order-list');
-        var cancelButton = document.querySelector('.cancel-button');
-        var orderSummary = document.querySelector('.order-summary'); // Menambahkan variabel untuk elemen order-summary
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuItems = document.querySelectorAll('.menu-item');
+            var orderList = document.querySelector('.order-list');
+            var totalMenuElement = document.getElementById('total-menu');
+            var totalPaymentElement = document.getElementById('total-payment');
+            var orderForm = document.getElementById('order-form');
+            var orderArray = []; // Array untuk menyimpan pesanan
 
-        menuItems.forEach(function (menuItem) {
-            menuItem.addEventListener('click', function () {
-                var itemName = menuItem.querySelector('h2').innerText;
-                var itemPrice = menuItem.querySelector('p').innerText;
-                var newItem = document.createElement('div');
-                newItem.innerHTML = '<p>' + itemName + '</p>' +
-                    '<input type="number" value="1" onchange="updateTotal(this, ' + itemPrice.slice(3) + ')">' + // Memanggil fungsi updateTotal saat jumlah barang diubah
-                    '<p id="price-per-pcs">' + itemPrice + '</p>'; // Menambahkan id untuk memperbarui harga per pcs
-                orderList.appendChild(newItem);
-                orderSummary.style.display = 'block'; // Menampilkan order-summary setelah pengguna memilih menu
+            menuItems.forEach(function (menuItem) {
+                menuItem.addEventListener('click', function () {
+                    var itemName = menuItem.getAttribute('data-nama');
+                    var itemPrice = menuItem.getAttribute('data-harga');
+                    var itemKategori = menuItem.getAttribute('data-kategori');
+                    var itemJumlah = 1; // Default jumlah 1
+
+                    // Menambahkan item ke array pesanan
+                    orderArray.push({
+                        nama: itemName,
+                        harga: itemPrice,
+                        kategori: itemKategori,
+                        jumlah: itemJumlah
+                    });
+
+                    // Menambahkan item ke daftar tampilan
+                    var newItem = document.createElement('div');
+                    newItem.innerHTML = '<p>' + itemName + ' - Rp' + itemPrice + ' (' + itemKategori + ') ' + 
+                                        '<input type="number" name="jumlah[]" value="' + itemJumlah + '" min="1" data-nama="' + itemName + '" class="jumlah-input">' + 
+                                        '</p>';
+                    orderList.appendChild(newItem);
+
+                    // Mengupdate total menu dan total pembayaran
+                    updateSummary();
+
+                    document.querySelector('.order-summary').style.display = 'block';
+                });
+            });
+
+            // Event listener for cancel button
+            document.querySelector('.cancel-button').addEventListener('click', function () {
+                orderList.innerHTML = ''; // Clear order list
+                orderArray = []; // Reset array pesanan
+                updateSummary(); // Reset summary
+                document.querySelector('.order-summary').style.display = 'none'; // Hide order-summary
+            });
+
+            // Fungsi untuk mengupdate total menu dan total pembayaran
+            function updateSummary() {
+                var totalMenu = orderArray.length;
+                var totalPayment = orderArray.reduce((sum, item) => sum + (item.harga * item.jumlah), 0);
+                
+                totalMenuElement.textContent = totalMenu;
+                totalPaymentElement.textContent = totalPayment;
+            }
+
+            // Mengupdate jumlah item dalam array pesanan saat input jumlah diubah
+            orderList.addEventListener('input', function(event) {
+                if (event.target.classList.contains('jumlah-input')) {
+                    var itemName = event.target.getAttribute('data-nama');
+                    var newJumlah = parseInt(event.target.value);
+
+                    // Update jumlah dalam array pesanan
+                    orderArray.forEach(item => {
+                        if (item.nama === itemName) {
+                            item.jumlah = newJumlah;
+                        }
+                    });
+
+                    // Update total
+                    updateSummary();
+                }
+            });
+
+            // Menambahkan array pesanan ke form saat submit
+            orderForm.addEventListener('submit', function () {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'orderData';
+                input.value = JSON.stringify(orderArray);
+                orderForm.appendChild(input);
             });
         });
-
-        cancelButton.addEventListener('click', function () {
-            orderList.innerHTML = ''; // Menghapus semua elemen dalam bagian pemesanan
-            orderSummary.style.display = 'none'; // Menyembunyikan order-summary saat pembatalan
-        });
-    });
-
-    function updateTotal(input, hargaPerPcs) {
-        var qty = input.value;
-        var totalPrice = qty * hargaPerPcs;
-        var pricePerPcs = input.parentElement.querySelector('#price-per-pcs'); // Mendapatkan elemen harga per pcs
-        pricePerPcs.innerText = 'Rp' + hargaPerPcs.toFixed(2) + '/pcs'; // Memperbarui teks harga per pcs
-        input.parentElement.querySelector('p:last-child').innerText = 'Rp' + totalPrice.toFixed(2); // Memperbarui teks total harga
-    }
     </script>
 </body>
 </html>
+
