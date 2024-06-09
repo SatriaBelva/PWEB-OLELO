@@ -33,8 +33,8 @@ class AuthController {
         $hashedPassword = password_hash($passwords, PASSWORD_BCRYPT);
 
         // SQL untuk memasukkan data ke tabel users
-        $stmt = $conn->prepare("INSERT INTO customer (role_id, nama, alamat, email, passwords, no_hp) VALUES (?, ?, ?, ?, ?, ?)");
-        $role_id = 3; // Misalnya 1 untuk admin, 2 untuk karyawan, dan 3 untuk customer
+        $stmt = $conn->prepare("INSERT INTO karyawan (role_id, nama, alamat, email, passwords, no_hp) VALUES (?, ?, ?, ?, ?, ?)");
+        $role_id = 2; // Misalnya 1 untuk admin, 2 untuk karyawan, dan 3 untuk customer
         $stmt->bind_param("sssssi", $role_id, $nama,  $alamat, $email, $hashedPassword, $no_hp );
 
         // Eksekusi query

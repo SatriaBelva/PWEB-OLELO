@@ -39,6 +39,12 @@
                     <div class="links_name"> Laporan</div>
                 </a>
             </li>
+            <li>
+          <a href="<?=urlpath('daftarkaryawan-owner')?>">
+            <i class="bx bx-line-chart"></i>
+            <div class="links_name">Laporan</div>
+          </a>
+        </li>
             <li class="profile">
                 <div class="profile-details">
                   <img src="/assets/profile-karyawan.png" alt="profileImg">
@@ -91,30 +97,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($detailTransaksi as $detailTransaksi) : ?>
                     <tr>
-                        <td>TR0001</td>
-                        <td>Dayinta</td>
-                        <td>Prol Tape, Suwar-Suwir, Dan Jenang Tape</td>
-                        <td>3</td>
-                        <td>Rp 90.000</td>
-                        <td>Selesai</td>
+                        <td>#TR<?php echo htmlspecialchars($detailTransaksi['id']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['nama']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['daftar_menu']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['jumlah_menu_dipesan']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['total_harga']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['total_harga']) ?></td>
                     </tr>
-                    <tr>
-                        <td>TR0001</td>
-                        <td>Dayinta</td>
-                        <td>Prol Tape, Suwar-Suwir, Dan Jenang Tape</td>
-                        <td>3</td>
-                        <td>Rp 90.000</td>
-                        <td>Selesai</td>
-                    </tr>
-                    <tr>
-                        <td>TR0001</td>
-                        <td>Dayinta</td>
-                        <td>Prol Tape, Suwar-Suwir, Dan Jenang Tape</td>
-                        <td>3</td>
-                        <td>Rp 90.000</td>
-                        <td>Selesai</td>
-                    </tr>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>

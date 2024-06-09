@@ -83,4 +83,58 @@ class Pesanan {
         }
         return $arr;
     }
+    public static function detailTransaksi(){
+        global $conn;
+        $sql = 
+        "SELECT t.id_transaksi as id, c.nama as nama, COUNT(dt.menu_id_menu) AS jumlah_menu_dipesan, SUM(dt.Jumlah * m.harga) AS total_harga, GROUP_CONCAT(m.nama SEPARATOR ', ') AS daftar_menu
+        FROM transaksi t
+        JOIN customer c ON c.Id_customer = t.customer_id_customer
+        JOIN detail_transaksi dt ON dt.transaksi_id_transaksi = t.id_transaksi
+        JOIN menu m ON dt.menu_id_menu = m.Id_menu
+        GROUP BY t.id_transaksi, c.nama";
+
+
+        $result = $conn->query($sql);
+        $arr = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $arr[] = $row;
+            }
+        }
+        return $arr;
+    }
+    public static function bestSeller(){
+        global $conn;
+        $sql = 
+        "SELECT m.nama as nama, SUM(dt.Jumlah) as jumlah
+        FROM menu m
+        JOIN detail_transaksi dt ON (dt.menu_id_menu = m.Id_menu)
+        GROUP BY m.nama ORDER BY jumlah DESC";
+
+        $result = $conn->query($sql);
+        $arr = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $arr[] = $row;
+            }
+        }
+        return $arr;
+    }
+    public static function getKaryawan(){
+        global $conn;
+        $sql = 
+        "SELECT * FROM karyawan";
+
+        $result = $conn->query($sql);
+        $arr = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $arr[] = $row;
+            }
+        }
+        return $arr;
+    }
 }

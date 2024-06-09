@@ -64,6 +64,12 @@
               <div class="links_name">Laporan</div>
             </a>
           </li>
+          <li>
+          <a href="<?=urlpath('daftarkaryawan-owner')?>">
+            <i class="bx bx-line-chart"></i>
+            <div class="links_name">Laporan</div>
+          </a>
+        </li>
           <li class="profile">
             <div class="profile-details">
               <img src="/assets/profile-karyawan.png" alt="profileImg">

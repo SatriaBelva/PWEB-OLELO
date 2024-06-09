@@ -39,6 +39,12 @@
             <div class="links_name">Laporan</div>
           </a>
         </li>
+        <li>
+          <a href="<?=urlpath('daftarkaryawan-owner')?>">
+            <i class="bx bx-line-chart"></i>
+            <div class="links_name">Laporan</div>
+          </a>
+        </li>
         <li class="profile">
           <div class="profile-details">
             <img src="profile-karyawan.png" alt="profileImg">
@@ -88,13 +94,9 @@
         <div class="best-seller">
           <h2>Menu Best Seller</h2>
           <ul>
-            <li>Prol Tape: <span>283</span></li>
-            <li>Tape Manis: <span>250</span></li>
-            <li>Kripik Edamame: <span>223</span></li>
-            <li>Pia Tape: <span>200</span></li>
-            <li>Pia Edamame: <span>150</span></li>
-            <li>Dodol Tape: <span>120</span></li>
-            <li>Tape Manis: <span>100</span></li>
+            <?php foreach($bestSeller as $bestSeller) : ?>
+            <li> <?php echo htmlspecialchars($bestSeller['nama']) ?><span><?php echo htmlspecialchars($bestSeller['jumlah']) ?></span></li>
+            <?php endforeach ?>
           </ul>
         </div>
       </div>

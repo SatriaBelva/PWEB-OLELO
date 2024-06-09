@@ -41,7 +41,7 @@
           </a>
         </li>
         <li>
-          <a href="<?=urlpath('daftarcustomer-owner')?>">
+          <a href="<?=urlpath('daftarkaryawan-owner')?>">
             <i class="bx bx-line-chart"></i>
             <div class="links_name">Laporan</div>
           </a>

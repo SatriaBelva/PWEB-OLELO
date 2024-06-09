@@ -30,19 +30,22 @@ class OwnerController{
     }
     
     static function riwayat(){
-        $total = Pesanan::total();
-        $totalPesanan = Pesanan::totalPesanan();
-        $totalTransaksi = Pesanan::totalTransaksi();
-        view('owner/riwayat', ['total' => $total, 'totalPesanan' => $totalPesanan, 'totalTransaksi' => $totalTransaksi]);
+        $total           = Pesanan::total();
+        $totalPesanan    = Pesanan::totalPesanan();
+        $totalTransaksi  = Pesanan::totalTransaksi();
+        $detailTransaksi = Pesanan::detailTransaksi();
+        view('owner/riwayat', ['total' => $total, 'detailTransaksi' => $detailTransaksi ,'totalPesanan' => $totalPesanan, 'totalTransaksi' => $totalTransaksi]);
     }
     static function tambahmenu(){
         view('owner/add_menu');
     }
     static function laporan(){
-        view('owner/laporan');
+        $bestSeller      = Pesanan::bestSeller();
+        view('owner/laporan', ['bestSeller' => $bestSeller]);
     }
-    static function daftarcustomer(){
-        view('owner/daftarcustomer');
+    static function daftarkaryawan(){
+        $getKaryawan     = Pesanan::getKaryawan();
+        view('owner/daftarkaryawan', ['getKaryawan' => $getKaryawan]);
     }
     static function editmenu(){
         view('owner/edit_menu');

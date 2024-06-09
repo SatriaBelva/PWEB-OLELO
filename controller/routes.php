@@ -21,7 +21,7 @@ Router::url('riwayat-owner', 'get', 'OwnerController::riwayat');
 Router::url('tambahmenu-owner', 'get', 'OwnerController::tambahmenu');
 Router::url('laporan-owner', 'get', 'OwnerController::laporan');
 Router::url('tambahmenu-owner', 'post', 'OwnerController::addMenuOwner');
-Router::url('daftarcustomer-owner', 'get', 'OwnerController::daftarcustomer');
+Router::url('daftarkaryawan-owner', 'get', 'OwnerController::daftarkaryawan');
 Router::url('editmenu-owner', 'get', 'OwnerController::daftarcustomer');
 
 //dashboard Karyawan

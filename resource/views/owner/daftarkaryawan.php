@@ -73,7 +73,7 @@ $conn->close();
           </a>
         </li>
         <li>
-          <a href="<?=urlpath('daftarcustomer-owner')?>">
+          <a href="<?=urlpath('daftarkaryawan-owner')?>">
             <i class="bx bx-line-chart"></i>
             <div class="links_name">Laporan</div>
           </a>
@@ -105,25 +105,19 @@ $conn->close();
         <table class="menu-table">
           <thead>
             <tr>
-              <th>ID_Menu</th>
-              <th>Nama Menu</th>
-              <th>Gambar</th>
-              <th>Deskripsi</th>
-              <th>Stok</th>
-              <th>Kategori</th>
-              <th>Opsi</th>
+              <th>ID Karyawan</th>
+              <th>Nama Karyawan</th>
+              <th>Asal</th>
+
             </tr>
           </thead>
           <tbody>
-                    <?php foreach ($data as $row) : ?>
-                        <tr>
-                        <td>  <?php echo htmlspecialchars($row['Id_menu']) ?> </td>
-                        <td>  <?php echo htmlspecialchars($row['nama'])?></td>
-                        <td>Rp<?php echo htmlspecialchars($row['harga'])?></td>
-                        <td>  <?php echo htmlspecialchars($row['Deskripsi'])?></td>
-                        <td>  <?php echo htmlspecialchars($row['Jumlah_stok'])?></td>
-                        <td>  <?php echo htmlspecialchars($row['kategori'])?></td>
-                    <?php endforeach; ?>        
+            <?php foreach ($getKaryawan as $getKaryawan) : ?>
+            <tr>
+              <td> <?php echo htmlspecialchars($getKaryawan['Id_karyawan']) ?> </td>
+              <td> <?php echo htmlspecialchars($getKaryawan['nama']) ?> </td>
+              <td> <?php echo htmlspecialchars($getKaryawan['alamat']) ?> </td>
+            <?php endforeach; ?>        
             </tbody>
         </table>
       </div>
