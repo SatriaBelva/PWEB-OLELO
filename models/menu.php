@@ -18,6 +18,22 @@ class Menu {
         $stmt->close();
     }
 
+    static function getAllMenu(){
+        // Query untuk mengambil data dari tabel menu
+        global $conn;
+        $sql = "SELECT * FROM menu";
+
+        $result = $conn->query($sql);
+        $arr = [];
+
+        if($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()){
+                $arr[] = $row;
+            }
+        }
+        return $arr;
+    }
+
     public static function getMenuById($id) {
         $sql = "SELECT * FROM menu WHERE Id_menu = ?";
         $stmt = $conn->prepare($sql);

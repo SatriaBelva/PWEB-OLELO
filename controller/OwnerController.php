@@ -1,6 +1,7 @@
 <?php
 
 include_once('C:/PWEB/olelo/models/user.php');
+include_once('C:/PWEB/olelo/models/pesanan.php');
 include_once 'function/main.php';
 include_once 'app/config/static.php';
 
@@ -9,24 +10,42 @@ class OwnerController{
         $user = $_SESSION['user'];
         $user_role = $user['role_id'];
         if ($user_role == '1'){
-            view('owner/menu', ['url' => 'menu']);
+            view('owner/menu', ['url' => 'menu', 'menus' => menu::getAllMenu($_SESSION['user'])]);
         }
         // else{
         //     header('location: restricted');
         // }
     }
 
-    static function pesanan(){
-        view('owner/pesanan');
+    static function pesanan() {
+        $pesanan = Pesanan::getAllPesanan();
+        $all_detail_pesanan = [];
+    
+        foreach ($pesanan as $p) {
+            $details = Pesanan::getAllDetailPesanan($p['id_transaksi']);
+            $all_detail_pesanan[$p['id_transaksi']] = $details;
+        }
+    
+        view('owner/pesanan', ['pesanan' => $pesanan, 'all_detail_pesanan' => $all_detail_pesanan]);
     }
+    
     static function riwayat(){
-        view('owner/riwayat');
+        $total = Pesanan::total();
+        $totalPesanan = Pesanan::totalPesanan();
+        $totalTransaksi = Pesanan::totalTransaksi();
+        view('owner/riwayat', ['total' => $total, 'totalPesanan' => $totalPesanan, 'totalTransaksi' => $totalTransaksi]);
     }
     static function tambahmenu(){
         view('owner/add_menu');
     }
     static function laporan(){
         view('owner/laporan');
+    }
+    static function daftarcustomer(){
+        view('owner/daftarcustomer');
+    }
+    static function editmenu(){
+        view('owner/edit_menu');
     }
 
     static function addMenuOwner() {
@@ -52,4 +71,19 @@ class OwnerController{
             view('karyawan/add_menu', ['url' => 'menu-karyawan']);
         }
     }
+
+    // static function getAllMenu()
+    // {
+    //     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'pemerintah') {
+    //         header('Location: ' . BASEURL . 'login?auth=false');
+    //         exit;
+    //     } else {
+    //         // Ambil data akun pemerintah dari model
+    //         $proposals = menu::getAllMenu($_SESSION['user']['id']);
+    //         view('owner/menu', [
+    //             'url' => 'proposal',
+    //             'menu' => $menu,
+    //         ]);
+    //     }
+    // }
 }

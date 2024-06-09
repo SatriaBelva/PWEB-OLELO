@@ -1,3 +1,35 @@
+<?php
+// Koneksi ke database
+require_once 'app/config/env.php';
+
+$host     = $_ENV['DB_HOST'];
+$username = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
+$database = $_ENV['DB_NAME'];
+
+$conn = new mysqli($host, $username, $password, $database);
+
+// Periksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel menu
+$sql = "SELECT * FROM customer";
+$result = $conn->query($sql);
+
+// Menyimpan hasil query ke dalam array
+$data = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+}
+
+// Tutup koneksi
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +107,7 @@
             <tr>
               <th>ID_Menu</th>
               <th>Nama Menu</th>
-              <th>Harga</th>
+              <th>Gambar</th>
               <th>Deskripsi</th>
               <th>Stok</th>
               <th>Kategori</th>
@@ -83,23 +115,20 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($menus as $row) : ?>
-              <tr>
-                  <td>  <?php echo htmlspecialchars($row['Id_menu']) ?> </td>
-                  <td>  <?php echo htmlspecialchars($row['nama'])?></td>
-                  <td>Rp<?php echo htmlspecialchars($row['harga'])?></td>
-                  <td>  <?php echo htmlspecialchars($row['Deskripsi'])?></td>
-                  <td>  <?php echo htmlspecialchars($row['Jumlah_stok'])?></td>
-                  <td>  <?php echo htmlspecialchars($row['kategori'])?></td>
-                  <td>    
-                      <a href="<?= urlpath('editmenu-owner')?>"><i class='fas fa-edit'></i></a>
-                      <!-- <a href=""><i class='fas fa-trash-alt'></i></a> -->
-                  </td>
-              </tr>   
-            <?php endforeach; ?>        
-          </tbody>
+                    <?php foreach ($data as $row) : ?>
+                        <tr>
+                        <td>  <?php echo htmlspecialchars($row['Id_menu']) ?> </td>
+                        <td>  <?php echo htmlspecialchars($row['nama'])?></td>
+                        <td>Rp<?php echo htmlspecialchars($row['harga'])?></td>
+                        <td>  <?php echo htmlspecialchars($row['Deskripsi'])?></td>
+                        <td>  <?php echo htmlspecialchars($row['Jumlah_stok'])?></td>
+                        <td>  <?php echo htmlspecialchars($row['kategori'])?></td>
+                    <?php endforeach; ?>        
+            </tbody>
         </table>
+      </div>
     </section>
+    
     <script>
       let tambahMenuBtn = document.getElementById("tambah-menu-btn");
       tambahMenuBtn.addEventListener("click", function () {

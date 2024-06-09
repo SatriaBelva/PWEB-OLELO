@@ -39,11 +39,11 @@ class AuthController {
 
         // Eksekusi query
         if ($stmt->execute()) {
-            echo "Registrasi berhasil.";
+            view('auth/login');
         } else {
             echo "Registrasi gagal: " . $stmt->error;
         }
-
+        
         $stmt->close();
     }
     static function sessionLogin(){

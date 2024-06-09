@@ -1,7 +1,7 @@
 <?php
 
-include_once('C:/PWEB/olelo/models/user.php');
-include_once('C:/PWEB/olelo/models/menu.php');
+include_once 'models/user.php';
+include_once 'models/menu.php';
 include_once 'function/main.php';
 include_once 'app/config/static.php';
 
@@ -10,7 +10,7 @@ class KaryawanController{
         $user = $_SESSION['user'];
         $user_role = $user['role_id'];
         if ($user_role == '2'){
-            view('karyawan/menu', ['url' => 'menu']);
+            view('karyawan/menu', ['url' => 'menu', 'menus' => menu::getAllMenu($_SESSION['user'])]);
         }
     }
 
@@ -80,6 +80,24 @@ class KaryawanController{
             // Tampilkan form tambah menu jika metode bukan POST
             view('karyawan/add_menu', ['url' => 'menu-karyawan']);
         }
+    }
+
+    // static function getAllMenu()
+    // {
+    //     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'pemerintah') {
+    //         header('Location: ' . BASEURL . 'login?auth=false');
+    //         exit;
+    //     } else {
+    //         // Ambil data akun pemerintah dari model
+    //         $proposals = menu::getAllMenu($_SESSION['user']['id']);
+    //         view('karyawan/menu', [
+    //             'url' => 'proposal',
+    //             'menu' => $menu,
+    //         ]);
+    //     }
+    // }
+    static function show(){
+        view('karyawan/menu', ['url' => 'menu-karyawan', 'menus' => menu::getAllMenu($_SESSION['user'])]);
     }
 }
 

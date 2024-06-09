@@ -7,6 +7,31 @@
     <link rel="stylesheet" href="resource/views/css/style-owner.css">
     <link rel="stylesheet" href="/sidebar/style.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .container-pesanan {
+            width: 100%;
+            border-radius: 10px;
+            background: #AFB3FF;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: black;
+            height: auto;
+        }
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -54,68 +79,57 @@
       <section class="home-section">
         <div class="container">
           <h3>Toko Oleh-Oleh Madurasa</h3>
-          <p id="current-date"></p>
-            <header class="order-list">
-                <h2>Daftar Pesanan Baru</h2>
-                <div class="order">
-                    <div class="order-header">
-                        <span>#08098</span>
-                        <span>20/05/2024 12.20</span>
-                    </div>
-                    <div class="order-items">
-                        <div class="order-item">
-                            <img src="dodol-tape.png" alt="Dodol Tape">
-                            <div class="item-details">
-                                <p>Dodol Tape</p>
-                                <p>Rp. 35.000 x2</p>
-                            </div>
-                        </div>
-                        <div class="order-item">
-                            <img src="pia-tape.png" alt="Pia Tape">
-                            <div class="item-details">
-                                <p>Pia Tape</p>
-                                <p>Rp. 35.000 x2</p>
-                            </div>
-                        </div>
-                        <div class="order-item">
-                            <img src="pia-tape.png" alt="Pia Tape">
-                            <div class="item-details">
-                                <p>Pia Tape</p>
-                                <p>Rp. 35.000 x2</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="order-footer">
-                        <p>Total Pembayaran: Rp 152.000</p>
-                        <button class="confirm" onclick="changeColor(this)">Confirm</button>
-                        <button class="reject" onclick="changeColor(this)">Reject</button>
-                    </div>
+          <h2>Daftar Pesanan Baru</h2>
+          <?php foreach ($pesanan as $pesanan_item) : ?>
+            <div class="container-pesanan">
+                <div>
+                    <?php echo "#TR".htmlspecialchars($pesanan_item['id_transaksi']) ?><br>
+                    <?php echo htmlspecialchars($pesanan_item['nama']) ?><br>
+                    <?php echo htmlspecialchars($pesanan_item['Tanggal']) ?>
                 </div>
-               
-              </header>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Nama Menu</td>
+                            <td>Harga per Satuan</td>
+                            <td>Jumlah</td>
+                            <td>Sub Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (isset($all_detail_pesanan[$pesanan_item['id_transaksi']])): ?>
+                            <?php foreach ($all_detail_pesanan[$pesanan_item['id_transaksi']] as $detail): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($detail['nama']) ?></td>
+                                    <td><?php echo htmlspecialchars($detail['harga']) ?></td>
+                                    <td><?php echo htmlspecialchars($detail['Jumlah']) ?></td>
+                                    <td><?php echo htmlspecialchars($detail['sub_total']) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+          <?php endforeach; ?>
+          <p id="current-date"></p>
         </div>
-            
-        </div>
-    </section>
-    <script>
-    function changeColor(button) {
-        let originalColor = button.style.backgroundColor;
-        
-        if (button.classList.contains('confirm')) {
-            button.style.backgroundColor = '#d4d46f'; // New color for confirm button when clicked
-        } else if (button.classList.contains('reject')) {
-            button.style.backgroundColor = '#d46b6b'; // New color for reject button when clicked
-        }
-        
-        // Set timeout to revert back to original color after 500ms
-        setTimeout(() => {
-            button.style.backgroundColor = originalColor;
-        }, 500);
-    }
-
-
-    </script>
-    <script src="/sidebar/script.js"></script>
-</script>
-</body>
+      </section>
+      <script>
+      function changeColor(button) {
+          let originalColor = button.style.backgroundColor;
+          
+          if (button.classList.contains('confirm')) {
+              button.style.backgroundColor = '#d4d46f'; // New color for confirm button when clicked
+          } else if (button.classList.contains('reject')) {
+              button.style.backgroundColor = '#d46b6b'; // New color for reject button when clicked
+          }
+          
+          // Set timeout to revert back to original color after 500ms
+          setTimeout(() => {
+              button.style.backgroundColor = originalColor;
+          }, 500);
+      }
+      </script>
+      <script src="/sidebar/script.js"></script>
+  </body>
 </html>

@@ -68,15 +68,15 @@
             <div class="summary">
                 <div class="summary-item">
                     <p>Pendapatan</p>
-                    <h2>1.500.000</h2>
+                    <h2>Rp<?php echo htmlspecialchars($total[0]['total']) ?></h2>
                 </div>
                 <div class="summary-item">
                     <p>Total Menu Terjual</p>
-                    <h2>150</h2>
+                    <h2> <?php echo htmlspecialchars($totalPesanan[0]['totalPesanan'])?> </h2>
                 </div>
                 <div class="summary-item">
                     <p>Total Transaksi</p>
-                    <h2>35</h2>
+                    <h2> <?php echo htmlspecialchars($totalTransaksi[0]['totalTransaksi'])?></h2>
                 </div>
             </div>
             <table class="order-table">

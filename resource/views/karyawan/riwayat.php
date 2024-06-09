@@ -66,8 +66,8 @@
             </header>
             <div class="summary">
                 <div class="summary-item">
-                    <p>Pendapatan</p>
-                    <h2>1.500.000</h2>
+                    <p>Omzet</p>
+                    <h2> <?php  ?></h2>
                 </div>
                 <div class="summary-item">
                     <p>Total Menu Terjual</p>
