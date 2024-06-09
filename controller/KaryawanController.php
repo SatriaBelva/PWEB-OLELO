@@ -15,16 +15,28 @@ class KaryawanController{
     }
 
     static function pesanan(){
-        view('karyawan/pesanan');
+        $pesanan = Pesanan::getAllPesanan();
+        $all_detail_pesanan = [];
+    
+        foreach ($pesanan as $p) {
+            $details = Pesanan::getAllDetailPesanan($p['id_transaksi']);
+            $all_detail_pesanan[$p['id_transaksi']] = $details;
+        }
+        view('karyawan/pesanan', ['pesanan' => $pesanan, 'all_detail_pesanan' => $all_detail_pesanan]);
     }
     static function riwayat(){
-        view('karyawan/riwayat');
+        $total           = Pesanan::total();
+        $totalPesanan    = Pesanan::totalPesanan();
+        $totalTransaksi  = Pesanan::totalTransaksi();
+        $detailTransaksi = Pesanan::detailTransaksi();
+        view('karyawan/riwayat', ['total' => $total, 'detailTransaksi' => $detailTransaksi ,'totalPesanan' => $totalPesanan, 'totalTransaksi' => $totalTransaksi]);
     }
     static function tambahmenu(){
         view('karyawan/add_menu');
     }
     static function laporan(){
-        view('karyawan/laporan');
+        $bestSeller      = Pesanan::bestSeller();
+        view('karyawan/laporan', ['bestSeller' => $bestSeller]);
     }
     static function editMenu() {
         $menu = Menu::getMenuById();

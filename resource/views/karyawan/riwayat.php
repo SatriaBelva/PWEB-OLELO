@@ -51,7 +51,7 @@
             </ul>
           </div>
 
-    <section class="home-section">
+          <section class="home-section">
         <div class="container">
             <h3>Toko Oleh-Oleh Madurasa</h1>
                 <p id="current-date"></p>
@@ -66,16 +66,16 @@
             </header>
             <div class="summary">
                 <div class="summary-item">
-                    <p>Omzet</p>
-                    <h2> <?php  ?></h2>
+                    <p>Pendapatan</p>
+                    <h2>Rp<?php echo htmlspecialchars($total[0]['total']) ?></h2>
                 </div>
                 <div class="summary-item">
                     <p>Total Menu Terjual</p>
-                    <h2>150</h2>
+                    <h2> <?php echo htmlspecialchars($totalPesanan[0]['totalPesanan'])?> </h2>
                 </div>
                 <div class="summary-item">
                     <p>Total Transaksi</p>
-                    <h2>35</h2>
+                    <h2> <?php echo htmlspecialchars($totalTransaksi[0]['totalTransaksi'])?></h2>
                 </div>
             </div>
             <table class="order-table">
@@ -90,30 +90,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($detailTransaksi as $detailTransaksi) : ?>
                     <tr>
-                        <td>TR0001</td>
-                        <td>Dayinta</td>
-                        <td>Prol Tape, Suwar-Suwir, Dan Jenang Tape</td>
-                        <td>3</td>
-                        <td>Rp 90.000</td>
-                        <td>Selesai</td>
+                        <td>#TR<?php echo htmlspecialchars($detailTransaksi['id']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['nama']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['daftar_menu']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['jumlah_menu_dipesan']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['total_harga']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['total_harga']) ?></td>
                     </tr>
-                    <tr>
-                        <td>TR0001</td>
-                        <td>Dayinta</td>
-                        <td>Prol Tape, Suwar-Suwir, Dan Jenang Tape</td>
-                        <td>3</td>
-                        <td>Rp 90.000</td>
-                        <td>Selesai</td>
-                    </tr>
-                    <tr>
-                        <td>TR0001</td>
-                        <td>Dayinta</td>
-                        <td>Prol Tape, Suwar-Suwir, Dan Jenang Tape</td>
-                        <td>3</td>
-                        <td>Rp 90.000</td>
-                        <td>Selesai</td>
-                    </tr>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>
