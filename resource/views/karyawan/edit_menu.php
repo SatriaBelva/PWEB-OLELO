@@ -12,14 +12,14 @@
       <div class="modal-content">
         <button class="close-btn" onclick="goBack()">&times;</button>
         <h1>Tambah Data Menu OLELO</h1>
-        <form id="formMenu" action="<?= urlpath('editmenu-karyawan') ?>" method="POST" enctype="multipart/form-data">
+        <form id="formMenu" action="<?= urlpath('editmenu-karyawan')."?id=".$menu['Id_menu'] ?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
               <label for="nama-menu">Nama Menu</label>
-              <input type="text" id="nama" name="nama" required />
+              <input type="text" id="nama" name="nama" required value="<?= htmlspecialchars($menu['nama']) ?>"/>
           </div>
           <div class="form-group half-width">
               <label for="kategori">Kategori</label>
-              <select id="kategori" name="kategori" required>
+              <select id="kategori" name="kategori" required >
                   <option value="">Pilih Kategori</option>
                   <option value="Jajanan Basah">Jajanan Basah</option>
                   <option value="Jajanan Kering">Jajanan Kering</option>
@@ -28,11 +28,11 @@
           </div>
           <div class="form-group half-width">
               <label for="harga">Harga</label>
-              <input type="number" id="harga" name="harga" required />
+              <input type="number" id="harga" name="harga" required value="<?= htmlspecialchars($menu['harga']) ?>"/>
           </div>
           <div class="form-group">
               <label for="deskripsi">Deskripsi</label>
-              <textarea id="deskripsi" name="deskripsi" rows="4" required></textarea>
+              <textarea id="deskripsi" name="deskripsi" rows="4" required><?= htmlspecialchars($menu['Deskripsi']) ?></textarea>
           </div>
           <!-- <div class="form-group half-width">
               <label for="gambar-produk">Gambar Produk</label>
@@ -40,7 +40,7 @@
           </div> -->
           <div class="form-group half-width">
               <label for="Jumlah_stok">Stok</label>
-              <input type="number" id="Jumlah_stok" name="Jumlah_stok" required />
+              <input type="number" id="Jumlah_stok" name="Jumlah_stok" required value="<?= htmlspecialchars($menu['Jumlah_stok']) ?>"/>
           </div>
           <button type="submit" id="simpanButton">Simpan</button>
       </form>

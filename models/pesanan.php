@@ -24,9 +24,8 @@ class Pesanan {
         global $conn;
         $sql = "SELECT m.nama, m.harga, dt.Jumlah, m.harga * dt.Jumlah as sub_total
                 FROM detail_transaksi dt 
-                JOIN menu m ON (m.Id_menu = dt.menu_id_menu)
+                JOIN menu m ON m.Id_menu = dt.menu_id_menu
                 WHERE dt.transaksi_id_transaksi = ?";
-
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id_transaksi);
         $stmt->execute();
@@ -122,6 +121,20 @@ class Pesanan {
         }
         return $arr;
     }
+
+    public static function pesananCustomerbyID($id) {
+        global $conn;
+        $sql = "SELECT c.nama, t.id_transaksi, t.Tanggal
+                FROM customer c
+                JOIN transaksi t ON t.customer_id_customer = c.Id_customer
+                WHERE c.Id_customer = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC); // Mengembalikan semua hasil sebagai array asosiatif
+    }
+
     public static function getKaryawan(){
         global $conn;
         $sql = 

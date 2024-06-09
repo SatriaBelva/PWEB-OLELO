@@ -39,9 +39,16 @@ class KaryawanController{
         view('karyawan/laporan', ['bestSeller' => $bestSeller]);
     }
     static function editMenu() {
-        $menu = Menu::getMenuById();
-        if ($menu) {
-            view('karyawan/edit_menu', ['menu' => $menu]);
+        $id          = $_GET['id'];
+        $nama        = $_POST['nama'];
+        $kategori    = $_POST['kategori'];
+        $harga       = $_POST['harga'];
+        $deskripsi   = $_POST['deskripsi'];
+        $Jumlah_stok = $_POST['Jumlah_stok'];
+        $menuUpdate  = Menu::updateMenu($id, $nama, $deskripsi, $Jumlah_stok, $harga, $kategori);
+        $menus       = Menu::getAllMenu();
+        if ($menuUpdate) {
+            view('karyawan/menu', ['menus' => $menus]);
         } else {
             // Tampilkan pesan jika menu tidak ditemukan
             echo "Menu tidak ditemukan.";
@@ -111,6 +118,14 @@ class KaryawanController{
     static function show(){
         view('karyawan/menu', ['url' => 'menu-karyawan', 'menus' => menu::getAllMenu($_SESSION['user'])]);
     }
+
+    public static function updateMenu() {
+        $id = $_GET['id'];
+        $menu = menu::getMenuById($id);
+        view('karyawan/edit_menu', ['menu' => $menu]);
+    }
+    
+    
 }
 
 

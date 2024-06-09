@@ -34,12 +34,6 @@
                         <div class="links_name">Riwayat Pesanan</div>
                     </a>
                 </li>
-                <li>
-                    <a href="/laporan/laporan.html">
-                        <i class='bx bx-line-chart'></i>
-                        <div class="links_name"> Laporan</div>
-                    </a>
-                </li>
                 <li class="profile">
                     <div class="profile-details">
                       <img src="c:\Users\USER\OneDrive\Documents\PWEB\oleloo\assets\profile-karyawan.png" alt="profileImg">

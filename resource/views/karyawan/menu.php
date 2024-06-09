@@ -81,17 +81,16 @@
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($menus as $row) : ?>
+                    foreach ($menus as $menus) : ?>
                         <tr>
-                        <td>  <?php echo htmlspecialchars($row['Id_menu']) ?> </td>
-                        <td>  <?php echo htmlspecialchars($row['nama'])?></td>
-                        <td>Rp<?php echo htmlspecialchars($row['harga'])?></td>
-                        <td>  <?php echo htmlspecialchars($row['Deskripsi'])?></td>
-                        <td>  <?php echo htmlspecialchars($row['Jumlah_stok'])?></td>
-                        <td>  <?php echo htmlspecialchars($row['kategori'])?></td>
+                        <td>  <?php echo htmlspecialchars($menus['Id_menu']) ?> </td>
+                        <td>  <?php echo htmlspecialchars($menus['nama'])?></td>
+                        <td>Rp<?php echo htmlspecialchars($menus['harga'])?></td>
+                        <td>  <?php echo htmlspecialchars($menus['Deskripsi'])?></td>
+                        <td>  <?php echo htmlspecialchars($menus['Jumlah_stok'])?></td>
+                        <td>  <?php echo htmlspecialchars($menus['kategori'])?></td>
                         <td>    
-                            <a href="<?= urlpath('editmenu-karyawan')?>"><i class='fas fa-edit'></i></a>
-                            
+                            <a href="<?= urlpath('editmenu-karyawan')."?id=".$menus['Id_menu']?>"><i class='fas fa-edit'></i></a>
                         </td>
                     <?php endforeach; ?>        
                 </tbody>

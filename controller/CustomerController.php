@@ -10,14 +10,28 @@ class CustomerController{
         $user = $_SESSION['user'];
         $user_role = $user['role_id'];
         if($user_role == '3'){
-            view('customer/menu', ['url' => 'menu']);
+            view('customer/menu', ['url' => 'menu', 'menus' => menu::getAllMenu($_SESSION['user'])]);
         }
         // else{
         //     header('location: restricted');
         // }
     }
-    static function pesanan(){
-        view('customer/pesanan');
+    public static function pesanan() {
+        if (isset($_SESSION['user']['user']['Id_customer'])) {
+            $id = $_SESSION['user']['user']['Id_customer'];
+            $pesanan = Pesanan::pesananCustomerbyID($id);
+            $all_detail_pesanan = [];
+
+            foreach ($pesanan as $p) {
+                $id_transaksi = $p['id_transaksi'];
+                $details = Pesanan::getAllDetailPesanan($id_transaksi);
+                $all_detail_pesanan[$id_transaksi] = $details;
+            }
+
+            view('customer/pesanan', ['pesanan' => $pesanan, 'all_detail_pesanan' => $all_detail_pesanan]);
+        } else {
+            echo "Id_customer tidak ditemukan dalam session.";
+        }
     }
     static function riwayatcustomer(){
         view('customer/riwayatcustomer');

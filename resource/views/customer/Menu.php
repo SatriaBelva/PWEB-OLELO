@@ -1,59 +1,3 @@
-<?php
-// Koneksi ke database
-require_once 'app/config/env.php';
-
-$host     = $_ENV['DB_HOST'];
-$username = $_ENV['DB_USER'];
-$password = $_ENV['DB_PASS'];
-$database = $_ENV['DB_NAME'];
-
-$conn = new mysqli($host, $username, $password, $database);
-
-// Periksa koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
-
-// Query untuk mengambil data dari tabel menu
-$sql = "SELECT * FROM menu";
-$result = $conn->query($sql);
-
-// Menyimpan hasil query ke dalam array
-$data = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-}
-
-// Tutup koneksi
-$conn->close();
-
-// Inisialisasi pesanan jika belum ada
-if (!isset($_SESSION['order'])) {
-    $_SESSION['order'] = array();
-}
-
-// Fungsi untuk menambahkan item ke pesanan
-function addItemToOrder($name, $price) {
-    $_SESSION['order'][] = array('name' => $name, 'price' => $price);
-}
-
-// Fungsi untuk mendapatkan total jumlah dan total pembayaran
-function getOrderSummary() {
-    $totalMenu = count($_SESSION['order']);
-    $totalPayment = array_sum(array_column($_SESSION['order'], 'price'));
-    return array('totalMenu' => $totalMenu, 'totalPayment' => $totalPayment);
-}
-
-// Saat menambahkan item ke pesanan
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['nama']) && isset($_POST['harga'])) {
-        addItemToOrder($_POST['nama'], $_POST['harga']);
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,12 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="links_name">Riwayat Pesanan</div>
                     </a>
                 </li>
-                <li>
-                    <a href="/laporan/laporan.html">
-                        <i class='bx bx-line-chart'></i>
-                        <div class="links_name"> Laporan</div>
-                    </a>
-                </li>
                 <li class="profile">
                     <div class="profile-details">
                       <img src="c:\Users\USER\OneDrive\Documents\PWEB\oleloo\assets\profile-karyawan.png" alt="profileImg">
@@ -137,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h2>Pilih Menu</h2>
             </header>
             <section class="menu-items">
-                <?php foreach ($data as $row): ?>
-                <div class="menu-item" style="text-align:left;" data-nama="<?php echo htmlspecialchars($row['nama']); ?>" data-harga="<?php echo htmlspecialchars($row['harga']); ?>" data-kategori="<?php echo htmlspecialchars($row['kategori']); ?>">
-                    <h2> <?php echo htmlspecialchars($row['nama'])?> </h2>
-                    <p>Rp<?php echo htmlspecialchars($row['harga'])?>/pcs</p>
-                    <p> <?php echo htmlspecialchars($row['kategori'])?></p>
+                <?php foreach ($menus as $menus): ?>
+                <div class="menu-item" style="text-align:left;" data-nama="<?php echo htmlspecialchars($menus['nama']); ?>" data-harga="<?php echo htmlspecialchars($menus['harga']); ?>" data-kategori="<?php echo htmlspecialchars($menus['kategori']); ?>">
+                    <h2> <?php echo htmlspecialchars($menus['nama'])?> </h2>
+                    <p>Rp<?php echo htmlspecialchars($menus['harga'])?>/pcs</p>
+                    <p> <?php echo htmlspecialchars($menus['kategori'])?></p>
                 </div>
                 <?php endforeach; ?>
             </section>
