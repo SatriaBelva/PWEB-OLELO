@@ -4,7 +4,7 @@ class Pesanan {
     // Mengambil semua pesanan
     public static function getAllPesanan() {
         global $conn;
-        $sql = "SELECT t.id_transaksi, t.Tanggal, c.nama 
+        $sql = "SELECT t.id_transaksi, t.Tanggal, c.nama, t.Status 
                 FROM transaksi t 
                 JOIN customer c ON (t.customer_id_customer = c.id_customer)";
 
@@ -124,7 +124,7 @@ class Pesanan {
 
     public static function pesananCustomerbyID($id) {
         global $conn;
-        $sql = "SELECT c.nama, t.id_transaksi, t.Tanggal
+        $sql = "SELECT c.nama, t.id_transaksi, t.Tanggal, t.status
                 FROM customer c
                 JOIN transaksi t ON t.customer_id_customer = c.Id_customer
                 WHERE c.Id_customer = ?";
@@ -157,9 +157,10 @@ class Pesanan {
         $conn->begin_transaction();
         
         try {
-            $sql = 'INSERT INTO transaksi (Tanggal, customer_id_customer) VALUES (?, ?)';
+            $status = 'Diproses';
+            $sql = 'INSERT INTO transaksi (Tanggal, customer_id_customer, status) VALUES (?, ?, ?)';
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param('si', $data['Tanggal'], $data['customer_id_customer']);
+            $stmt->bind_param('sis', $data['Tanggal'], $data['customer_id_customer'],  $status);
             $stmt->execute();
             $last_id = $conn->insert_id;
             
@@ -181,4 +182,16 @@ class Pesanan {
         }
         return $last_id;
     }    
+
+    public static function diterima($id) {
+        global $conn;
+        $sql = "UPDATE `transaksi` SET `Status`='Diterima' WHERE id_transaksi = ?"; // Menggunakan id_transaksi untuk kondisi UPDATE
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
+    public static function ditolak() {
+        
+    }
 }

@@ -35,15 +35,10 @@
                     </a>
                 </li>
                 <li class="profile">
-                    <div class="profile-details">
-                      <img src="c:\Users\USER\OneDrive\Documents\PWEB\oleloo\assets\profile-karyawan.png" alt="profileImg">
-                      <div class="name_job">
-                        <div class="name">Hallo, Linda</div>
-                        <div class="job">Karyawan</div>
-                      </div>
-                    </div>
-                    <i class='bx bx-log-out' id="log_out"></i>
-                  </li>
+                    <a href="<?=urlpath('logout')?>">
+                        <i class='bx bx-log-out' id="log_out"></i>
+                    </a>
+                </li>
                 </ul>
               </div>
               <div class="content">

@@ -30,6 +30,29 @@
             background-color: #4CAF50;
             color: white;
         }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            background-color: #004494;
+        }
+
+        button:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -64,14 +87,9 @@
             </a>
           </li>
           <li class="profile">
-            <div class="profile-details">
-              <img src="/assets/profile-karyawan.png" alt="profileImg">
-              <div class="name_job">
-                <div class="name">Hallo, Linda</div>
-                <div class="job">Karyawan</div>
-              </div>
-            </div>
-            <i class='bx bx-log-out' id="log_out"></i>
+            <a href="<?=urlpath('logout')?>">
+              <i class='bx bx-log-out' id="log_out"></i>
+            </a>
           </li>
         </ul>
       </div>
@@ -108,6 +126,16 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
+                <div class="button-container">
+                    <form action="<?= urlpath('statusditerima-karyawan')."?id=".$pesanan_item['id_transaksi'] ?>" method="post">
+                        <input type="hidden" name="id_transaksi" value="<?php echo htmlspecialchars($pesanan_item['id_transaksi']); ?>">
+                        <button type="submit" class="button-accept">Diterima</button>
+                    </form>
+                    <form action="<?= urlpath('statusditolak-karyawan')."?id=".$pesanan_item['id_transaksi'] ?>" method="post">
+                        <input type="hidden" name="id_transaksi" value="<?php echo htmlspecialchars($pesanan_item['id_transaksi']); ?>">
+                        <button type="submit" class="button-reject">Ditolak</button>
+                    </form>
+                </div>
             </div>
           <?php endforeach; ?>
           <p id="current-date"></p>

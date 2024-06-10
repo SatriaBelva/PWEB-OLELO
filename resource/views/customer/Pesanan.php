@@ -60,14 +60,9 @@
             </a>
           </li>
           <li class="profile">
-            <div class="profile-details">
-              <img src="/assets/profile-karyawan.png" alt="profileImg">
-              <div class="name_job">
-                <div class="name">Hallo, Linda</div>
-                <div class="job">Karyawan</div>
-              </div>
-            </div>
-            <i class='bx bx-log-out' id="log_out"></i>
+                    <a href="<?=urlpath('logout')?>">
+                        <i class='bx bx-log-out' id="log_out"></i>
+                    </a>
           </li>
         </ul>
       </div>
@@ -77,11 +72,12 @@
           <h2>Daftar Pesanan Baru</h2>
           <?php foreach ($pesanan as $pesanan_item) : ?>
             <div class="container-pesanan">
-                <div>
-                    <?php echo "#TR".htmlspecialchars($pesanan_item['id_transaksi']) ?><br>
-                    <?php echo htmlspecialchars($pesanan_item['nama']) ?><br>
-                    <?php echo htmlspecialchars($pesanan_item['Tanggal']) ?>
+              <div>
+                <?php echo "#TR".htmlspecialchars($pesanan_item['id_transaksi']) ?><br>
+                <?php echo htmlspecialchars($pesanan_item['nama']) ?><br>
+                <?php echo htmlspecialchars($pesanan_item['Tanggal']) ?>
                 </div>
+                <p>Status Pesanan : <?php echo htmlspecialchars($pesanan_item['status']) ?></p>
                 <table>
                     <thead>
                         <tr>

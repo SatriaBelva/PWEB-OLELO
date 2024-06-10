@@ -7,7 +7,7 @@ include_once 'app/config/static.php';
 
 class AuthController {
     static function index(){
-        view('auth/login', ['url' => 'index']);
+        view('auth/login', ['url' => 'login']);
     }
     static function restricted(){
         view('restricted',['url'=> 'restricted']);
@@ -15,6 +15,26 @@ class AuthController {
     static function login(){
         view('auth/login', ['url' => 'login']);
     }
+    static function logout()
+     {
+        if ( ini_get( 'session.use_cookies' ) ) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params[ 'path' ],
+                $params[ 'domain' ],
+                $params[ 'secure' ],
+                $params[ 'httponly' ]
+            );
+        }
+        session_destroy();
+
+        header( 'Location: auth/login' );
+        exit();
+    }
+
     static function register(){
         view('auth/register', ['url' => 'register']);
     }
@@ -34,7 +54,7 @@ class AuthController {
 
         // SQL untuk memasukkan data ke tabel users
         $stmt = $conn->prepare("INSERT INTO karyawan (role_id, nama, alamat, email, passwords, no_hp) VALUES (?, ?, ?, ?, ?, ?)");
-        $role_id = 2; // Misalnya 1 untuk admin, 2 untuk karyawan, dan 3 untuk customer
+        $role_id = 3; // Misalnya 1 untuk admin, 2 untuk karyawan, dan 3 untuk customer
         $stmt->bind_param("sssssi", $role_id, $nama,  $alamat, $email, $hashedPassword, $no_hp );
 
         // Eksekusi query

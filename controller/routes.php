@@ -35,6 +35,8 @@ Router::url('tambahmenus-karyawan', 'post', 'KaryawanController::addMenu');
 // Router::url('tambahmenu-karyawan', 'get', 'KaryawanController::addMenu');
 Router::url('editmenu-karyawan', 'post', 'KaryawanController::editMenu');
 Router::url('editmenu-karyawan', 'get', 'KaryawanController::updateMenu');
+Router::url('statusditerima-karyawan', 'post', 'KaryawanController::diterima');
+Router::url('statusditolak-karyawan', 'post', 'KaryawanController::ditolak');
 
 
 // dashboard Customer

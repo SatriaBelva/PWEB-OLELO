@@ -124,6 +124,21 @@ class KaryawanController{
         $menu = menu::getMenuById($id);
         view('karyawan/edit_menu', ['menu' => $menu]);
     }
+    public static function diterima() {
+        $id = $_GET['id'];
+        $status = Pesanan::diterima($id);
+        $pesanan = Pesanan::getAllPesanan();
+        $all_detail_pesanan = [];
+    
+        foreach ($pesanan as $p) {
+            $details = Pesanan::getAllDetailPesanan($p['id_transaksi']);
+            $all_detail_pesanan[$p['id_transaksi']] = $details;
+        }
+        view('karyawan/pesanan', ['pesanan' => $pesanan, 'all_detail_pesanan' => $all_detail_pesanan]);
+    }
+    public static function ditolak() {
+        
+    }
     
     
 }
