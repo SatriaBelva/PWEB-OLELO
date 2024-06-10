@@ -58,16 +58,17 @@
                                     <td>Status</td>
                                 </tr>
                             </thead>
-                        </table>
-
-                        <table style="gap: 0px; width: 100%; background-color:white;">
+                            <tbody>
+                                <?php foreach($transaksi as $transaksi) : ?>
                                 <tr>
-                                    <td>#0011</td>
-                                    <td>Pie Edamame</td>
-                                    <td>5</td>
-                                    <td>Rp. 56.000</td>
-                                    <td>Lunas</td>
+                                    <td>#TR<?php echo htmlspecialchars($transaksi['id']) ?> </td>    
+                                    <td><?php echo htmlspecialchars($transaksi['daftar_menu']) ?> </td>    
+                                    <td><?php echo htmlspecialchars($transaksi['jumlah_menu_dipesan']) ?> </td>    
+                                    <td><?php echo htmlspecialchars($transaksi['total_harga']) ?> </td>    
+                                    <td><?php echo htmlspecialchars($transaksi['status']) ?> </td>    
                                 </tr>
+                                <?php endforeach ?>
+                            </tbody>
                         </table>
                         
                     </div>

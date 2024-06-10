@@ -133,65 +133,83 @@ class Pesanan {
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC); // Mengembalikan semua hasil sebagai array asosiatif
-    }
-
-    public static function getKaryawan(){
-        global $conn;
-        $sql = 
-        "SELECT * FROM karyawan";
-
-        $result = $conn->query($sql);
-        $arr = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $arr[] = $row;
-            }
         }
-        return $arr;
-    }
-
-    public static function insertNewTransaction($data=[]){
-        global $conn;
         
-        $conn->begin_transaction();
-        
-        try {
-            $status = 'Diproses';
-            $sql = 'INSERT INTO transaksi (Tanggal, customer_id_customer, status) VALUES (?, ?, ?)';
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('sis', $data['Tanggal'], $data['customer_id_customer'],  $status);
-            $stmt->execute();
-            $last_id = $conn->insert_id;
+        public static function getKaryawan(){
+            global $conn;
+            $sql = 
+            "SELECT * FROM karyawan";
             
-            $sql = 'INSERT INTO detail_transaksi (transaksi_id_transaksi, menu_id_menu, Jumlah) VALUES (?, ?, ?)';
-            $stmt = $conn->prepare($sql);
+            $result = $conn->query($sql);
+            $arr = [];
             
-            foreach ($data['menu_id_menu'] as $key => $menu) {
-                $menu_id = $menu;
-                $jumlah = $data['jumlah'][$key];
-                $stmt->bind_param('iii', $last_id, $menu_id, $jumlah);
-                $stmt->execute();
-            }
-            
-            $conn->commit();
-            
-        } catch (Exception $e) {
-            $conn->rollback();
-            throw $e; 
-        }
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $arr[] = $row;
+                    }
+                    }
+                    return $arr;
+                    }
+                    
+                    public static function insertNewTransaction($data=[]){
+                        global $conn;
+                        
+                        $conn->begin_transaction();
+                        
+                        try {
+                            $status = 'Diproses';
+                            $sql = 'INSERT INTO transaksi (Tanggal, customer_id_customer, status) VALUES (?, ?, ?)';
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param('sis', $data['Tanggal'], $data['customer_id_customer'],  $status);
+                            $stmt->execute();
+                            $last_id = $conn->insert_id;
+                            
+                            $sql = 'INSERT INTO detail_transaksi (transaksi_id_transaksi, menu_id_menu, Jumlah) VALUES (?, ?, ?)';
+                            $stmt = $conn->prepare($sql);
+                            
+                            foreach ($data['menu_id_menu'] as $key => $menu) {
+                                $menu_id = $menu;
+                                $jumlah = $data['jumlah'][$key];
+                                $stmt->bind_param('iii', $last_id, $menu_id, $jumlah);
+                                $stmt->execute();
+                                }
+                                
+                                $conn->commit();
+                                
+                                } catch (Exception $e) {
+                                    $conn->rollback();
+                                    throw $e; 
+                                    }
         return $last_id;
-    }    
-
-    public static function diterima($id) {
-        global $conn;
-        $sql = "UPDATE `transaksi` SET `Status`='Diterima' WHERE id_transaksi = ?"; // Menggunakan id_transaksi untuk kondisi UPDATE
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        return $stmt->execute();
-    }
-    public static function ditolak() {
+        }    
         
-    }
-}
+        public static function diterima($id) {
+            global $conn;
+            $sql = "UPDATE `transaksi` SET `Status`='Diterima' WHERE id_transaksi = ?"; // Menggunakan id_transaksi untuk kondisi UPDATE
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            return $stmt->execute();
+            }
+            public static function ditolak() {
+                
+            }
+            
+            public static function riwayatTransaksibyId($id){
+                global $conn;
+                $sql = "SELECT t.id_transaksi as id, c.nama as nama, COUNT(dt.menu_id_menu) AS jumlah_menu_dipesan, SUM(dt.Jumlah * m.harga) AS total_harga, GROUP_CONCAT(m.nama SEPARATOR ', ') AS daftar_menu, t.Status as status
+                        FROM transaksi t
+                        JOIN customer c ON c.Id_customer = t.customer_id_customer
+                        JOIN detail_transaksi dt ON dt.transaksi_id_transaksi = t.id_transaksi
+                        JOIN menu m ON dt.menu_id_menu = m.Id_menu
+                        WHERE t.customer_id_customer = ? AND t.status = 'Diterima'
+                        GROUP BY t.id_transaksi, c.nama";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                return $result->fetch_all(MYSQLI_ASSOC); // Mengembalikan semua hasil sebagai array asosiatif
+                
+            }
+            }
+            

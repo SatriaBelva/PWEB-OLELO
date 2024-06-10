@@ -34,7 +34,9 @@ class CustomerController{
         }
     }
     static function riwayatcustomer(){
-        view('customer/riwayatcustomer');
+        $id = $_SESSION['user']['user']['Id_customer'];
+        $transaksi = Pesanan::riwayatTransaksibyId($id);
+        view('customer/riwayatcustomer', ['transaksi' => $transaksi]);
     }
 
     static function ordercustomer(){
