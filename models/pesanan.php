@@ -150,4 +150,35 @@ class Pesanan {
         }
         return $arr;
     }
+
+    public static function insertNewTransaction($data=[]){
+        global $conn;
+        
+        $conn->begin_transaction();
+        
+        try {
+            $sql = 'INSERT INTO transaksi (Tanggal, customer_id_customer) VALUES (?, ?)';
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('si', $data['Tanggal'], $data['customer_id_customer']);
+            $stmt->execute();
+            $last_id = $conn->insert_id;
+            
+            $sql = 'INSERT INTO detail_transaksi (transaksi_id_transaksi, menu_id_menu, Jumlah) VALUES (?, ?, ?)';
+            $stmt = $conn->prepare($sql);
+            
+            foreach ($data['menu_id_menu'] as $key => $menu) {
+                $menu_id = $menu;
+                $jumlah = $data['jumlah'][$key];
+                $stmt->bind_param('iii', $last_id, $menu_id, $jumlah);
+                $stmt->execute();
+            }
+            
+            $conn->commit();
+            
+        } catch (Exception $e) {
+            $conn->rollback();
+            throw $e; 
+        }
+        return $last_id;
+    }    
 }

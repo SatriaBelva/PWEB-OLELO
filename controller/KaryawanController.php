@@ -48,7 +48,7 @@ class KaryawanController{
         $menuUpdate  = Menu::updateMenu($id, $nama, $deskripsi, $Jumlah_stok, $harga, $kategori);
         $menus       = Menu::getAllMenu();
         if ($menuUpdate) {
-            view('karyawan/menu', ['menus' => $menus]);
+            header('Location:'.BASEURL.'menu-karyawan');
         } else {
             // Tampilkan pesan jika menu tidak ditemukan
             echo "Menu tidak ditemukan.";

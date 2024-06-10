@@ -49,7 +49,7 @@ class Menu {
         global $conn;
         $sql = "UPDATE menu SET nama=?, deskripsi=?, jumlah_stok=?, harga=?, kategori=? WHERE Id_menu=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssisii", $nama, $deskripsi, $jumlah_stok, $harga, $kategori, $id);
+        $stmt->bind_param("ssissi", $nama, $deskripsi, $jumlah_stok, $harga, $kategori, $id);
         return $stmt->execute();
     }
             

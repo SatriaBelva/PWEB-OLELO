@@ -25,6 +25,9 @@
 
                 <label for="alamat">Alamat:</label>
                 <input type="alamat" id="alamat" name="alamat" required>
+
+                <label for="alamat">TTL:</label>
+                <input type="date" id="alamat" name="alamat" required>
                 
                 <label for="passwords">Password:</label>
                 <input type="passwords" id="passwords" name="passwords" required>

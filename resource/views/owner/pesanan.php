@@ -66,7 +66,7 @@
           </li>
           <li>
           <a href="<?=urlpath('daftarkaryawan-owner')?>">
-            <i class="bx bx-line-chart"></i>
+            <i class="bx bx-user-check"></i>
             <div class="links_name">Laporan</div>
           </a>
         </li>

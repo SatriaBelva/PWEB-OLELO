@@ -1,35 +1,3 @@
-<?php
-// Koneksi ke database
-require_once 'app/config/env.php';
-
-$host     = $_ENV['DB_HOST'];
-$username = $_ENV['DB_USER'];
-$password = $_ENV['DB_PASS'];
-$database = $_ENV['DB_NAME'];
-
-$conn = new mysqli($host, $username, $password, $database);
-
-// Periksa koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
-
-// Query untuk mengambil data dari tabel menu
-$sql = "SELECT * FROM customer";
-$result = $conn->query($sql);
-
-// Menyimpan hasil query ke dalam array
-$data = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-}
-
-// Tutup koneksi
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +42,7 @@ $conn->close();
         </li>
         <li>
           <a href="<?=urlpath('daftarkaryawan-owner')?>">
-            <i class="bx bx-line-chart"></i>
+            <i class="bx bx-user-check"></i>
             <div class="links_name">Laporan</div>
           </a>
         </li>
@@ -96,10 +64,10 @@ $conn->close();
         <h3>Toko Oleh-Oleh Madurasa</h3>
           <p id="current-date"></p>
         <header>
-          <h1>Daftar Menu OLELO</h1>
-          <a href=" <?=urlpath('tambahmenu-owner')?>">
+          <h1>Daftar Karyawan</h1>
+          <!-- <a href=" <?=urlpath('tambahmenu-owner')?>">
             <button id="tambah-menu-btn">Tambah Menu</button>
-          </a>
+          </a> -->
         </header>
         
         <table class="menu-table">
@@ -108,7 +76,7 @@ $conn->close();
               <th>ID Karyawan</th>
               <th>Nama Karyawan</th>
               <th>Asal</th>
-
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -117,18 +85,22 @@ $conn->close();
               <td> <?php echo htmlspecialchars($getKaryawan['Id_karyawan']) ?> </td>
               <td> <?php echo htmlspecialchars($getKaryawan['nama']) ?> </td>
               <td> <?php echo htmlspecialchars($getKaryawan['alamat']) ?> </td>
+              <td>    
+                <a href="<?= urlpath('hapusKaryawan-owner')."?id=".$getKaryawan['Id_karyawan']?>"><i class='bx bx-trash' style="color:red;"></i></a>
+              </td>
             <?php endforeach; ?>        
             </tbody>
         </table>
       </div>
     </section>
     
-    <script>
+    <!-- <script>
       let tambahMenuBtn = document.getElementById("tambah-menu-btn");
       tambahMenuBtn.addEventListener("click", function () {
         window.location.href = "/menu/add-menu.html";
       });
     </script>
-    <script src="/sidebar/script.js"></script>
+    <script src="/sidebar/script.js"></script> -->
+    <script src="script.js"></script>
 </body>
 </html>

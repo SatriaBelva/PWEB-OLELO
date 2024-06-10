@@ -23,6 +23,7 @@ Router::url('laporan-owner', 'get', 'OwnerController::laporan');
 Router::url('tambahmenu-owner', 'post', 'OwnerController::addMenuOwner');
 Router::url('daftarkaryawan-owner', 'get', 'OwnerController::daftarkaryawan');
 Router::url('editmenu-owner', 'get', 'OwnerController::daftarcustomer');
+Router::url('hapusKaryawan-owner', 'get', 'OwnerController::hapusKaryawan');
 
 //dashboard Karyawan
 Router::url('menu-karyawan', 'get', 'KaryawanController::index');

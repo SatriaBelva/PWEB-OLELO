@@ -1,7 +1,8 @@
 <?php
 
-include_once('C:/PWEB/olelo/models/user.php');
-include_once('C:/PWEB/olelo/models/pesanan.php');
+include_once 'models/user.php';
+include_once 'models/pesanan.php';
+include_once 'models/karyawan.php';
 include_once 'function/main.php';
 include_once 'app/config/static.php';
 
@@ -49,6 +50,14 @@ class OwnerController{
     }
     static function editmenu(){
         view('owner/edit_menu');
+    }
+    static function hapusKaryawan(){
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+           $id = $_GET['id'];
+        }
+        $hapusKaryawan = Karyawan::hapusKaryawan($id);
+        
+        header('Location:'.BASEURL.'daftarkaryawan-owner');
     }
 
     static function addMenuOwner() {
