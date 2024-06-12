@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Oleh-Oleh Madurasa</title>
+    <title>Toko Oleh-Oleh OLELO</title>
     <link rel="stylesheet" href="resource/views/css/styles-customer.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <style>
@@ -27,6 +27,41 @@
             width: 50px;
             margin-left: 10px;
         }
+        .order-button,
+        .cancel-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 10px;
+        }
+
+        .order-button {
+            background-color: #28a745;
+            color: white;
+            width: 100%;
+        }
+
+        .order-button:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            /* margin-left: 10px; */
+            width: 100%;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+            color: white;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -65,16 +100,18 @@
     
         <main class="content">
             <header class="header">
-                <h1>Toko Oleh-Oleh Madurasa</h1>
-                <p>Sunday, June 20 2021</p>
+                <h1>Toko Oleh-Oleh OLELO</h1>
+                <p> <? ?></p>
                 <h2>Pilih Menu</h2>
             </header>
             <section class="menu-items">
                 <?php foreach ($menus as $menus): ?>
                 <div class="menu-item" style="text-align:left;" data-nama="<?php echo htmlspecialchars($menus['nama']); ?>" data-harga="<?php echo htmlspecialchars($menus['harga']); ?>" data-kategori="<?php echo htmlspecialchars($menus['kategori']); ?>" data-id = "<?php echo htmlspecialchars($menus['Id_menu'])?>">
                     <h2> <?php echo htmlspecialchars($menus['nama'])?> </h2>
-                    <p>Rp<?php echo htmlspecialchars($menus['harga'])?>/pcs</p>
-                    <p> <?php echo htmlspecialchars($menus['kategori'])?></p>
+                    <img style="border-radius: 10px;" src="uploads_dir/<?php echo $menus['Gambar']?>">
+                    <p>Harga : Rp<?php echo htmlspecialchars($menus['harga'])?>/pcs</p>
+                    <p>Kategori    :  <?php echo htmlspecialchars($menus['kategori'])?></p>
+                    <p>Jumlah Stok :  <?php echo htmlspecialchars($menus['Jumlah_stok'])?></p>
                 </div>
                 <?php endforeach; ?>
             </section>
@@ -87,9 +124,9 @@
                 </div>
                 <div class="total">
                     <p>Total Menu: <span id="total-menu">0</span></p>
-                    <p>Total Pembayaran: Rp. <span id="total-payment">0</span></p>
+                    <p>Total Pembayaran: <span id="total-payment">00</span></p>
                 </div>
-                <button type="submit" class="order-button">Pesan</button>
+                <button type="submit" class="order-button" style="width:100%;">Pesan</button>
             </form>
             <button class="cancel-button">Batal</button>
         </section>
@@ -124,11 +161,23 @@
                     });
 
                     var newItem = document.createElement('div');
-                    newItem.innerHTML = `<p>${itemName} - Rp${itemPrice} (${itemCategory}) 
-                                        <input type="number" name="quantity[]" value="${itemQuantity}" min="1" data-name="${itemName}" class="quantity-input" style="color: red;"></p>`;
-                    orderList.appendChild(newItem);
+                        newItem.style.display = 'flex';
+                        newItem.style.flexDirection = 'column';
+                        newItem.style.padding = '10px';
+                        newItem.style.marginBottom = '5px';
+                        newItem.style.border = '1px solid #ddd';
+                        newItem.style.borderRadius = '5px';
+                        newItem.style.backgroundColor = '#f9f9f9';
 
-                    updateSummary();
+                        newItem.innerHTML = `
+                            <div style="display: flex;">${itemName}</div>
+                            <div style="display: flex;">Rp${itemPrice}00</div>
+                            <div style="display: flex">${itemCategory}</div>
+                            <input type="number" name="quantity[]" value="${itemQuantity}" min="1" data-name="${itemName}" class="quantity-input" style="width : 100%; padding: 5px; font-size: 16px; text-align: center; color: red;">
+                        `;
+                        orderList.appendChild(newItem);
+
+                        updateSummary();
 
                     document.querySelector('.order-summary').style.display = 'block';
                 });

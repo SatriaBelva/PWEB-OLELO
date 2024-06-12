@@ -7,6 +7,43 @@
     <link rel="stylesheet" href="resource/views/css/style-owner.css">
     <link rel="stylesheet" href="/sidebar/style.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        table {
+            margin-top:10px;
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #C5C8FF;
+            color: black;
+        }
+
+        table thead th, table thead td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:hover {
+            background-color: #d1ecf1;
+        }
+
+        table tbody td {
+            padding: 12px 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -45,32 +82,18 @@
             <div class="links_name">Laporan</div>
           </a>
         </li>
-            <li class="profile">
-                <div class="profile-details">
-                  <img src="/assets/profile-karyawan.png" alt="profileImg">
-                  <div class="name_job">
-                    <div class="name">Hallo, Linda</div>
-                    <div class="job">Karyawan</div>
-                  </div>
-                </div>
-                <i class='bx bx-log-out' id="log_out"></i>
-              </li>
+        <li class="profile">
+          <a href="<?=urlpath('logout')?>">
+            <i class='bx bx-log-out' id="log_out"></i>
+          </a>
+        </li>
             </ul>
           </div>
 
     <section class="home-section">
         <div class="container">
-            <h3>Toko Oleh-Oleh Madurasa</h1>
+            <h3>Toko Oleh-Oleh OLELO</h1>
                 <p id="current-date"></p>
-            <header>
-                <h1>Riwayat Pesanan OLELO</h1>
-                <div class="date-filter">
-                    <button>Today</button>
-                    <button>Yesterday</button>
-                    <button>Week</button>
-                    <button>Month</button>
-                </div>
-            </header>
             <div class="summary">
                 <div class="summary-item">
                     <p>Pendapatan</p>
@@ -104,7 +127,7 @@
                         <td>   <?php echo htmlspecialchars($detailTransaksi['daftar_menu']) ?></td>
                         <td>   <?php echo htmlspecialchars($detailTransaksi['jumlah_menu_dipesan']) ?></td>
                         <td>   <?php echo htmlspecialchars($detailTransaksi['total_harga']) ?></td>
-                        <td>   <?php echo htmlspecialchars($detailTransaksi['total_harga']) ?></td>
+                        <td>   <?php echo htmlspecialchars($detailTransaksi['status']) ?></td>
                     </tr>
                     <?php endforeach ?>
                 </tbody>

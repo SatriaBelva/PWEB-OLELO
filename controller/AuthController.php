@@ -48,14 +48,35 @@ class AuthController {
         $email = $_POST['email'];
         $alamat = $_POST['alamat'];
         $passwords = $_POST['passwords'];
+        $TTL = $_POST['TTL'];
 
         // Hash password
         $hashedPassword = password_hash($passwords, PASSWORD_BCRYPT);
+        
+        $tables = ['customer', 'karyawan', 'admin'];
+
+        foreach ($tables as $table) {
+            $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // Email sudah ada
+                echo "<script>
+                    alert('Email sudah terdaftar di tabel $table. Silakan gunakan email lain.');
+                    window.location.href = window.location.href;
+                  </script>";
+            $stmt->close();
+            return;
+            }
+            $stmt->close();
+        }
 
         // SQL untuk memasukkan data ke tabel users
-        $stmt = $conn->prepare("INSERT INTO karyawan (role_id, nama, alamat, email, passwords, no_hp) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO customer (role_id, nama, alamat, email, passwords, no_hp, TTL) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $role_id = 3; // Misalnya 1 untuk admin, 2 untuk karyawan, dan 3 untuk customer
-        $stmt->bind_param("sssssi", $role_id, $nama,  $alamat, $email, $hashedPassword, $no_hp );
+        $stmt->bind_param("sssssis", $role_id, $nama,  $alamat, $email, $hashedPassword, $no_hp, $TTL);
 
         // Eksekusi query
         if ($stmt->execute()) {

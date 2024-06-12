@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="illustration">
-            <img src="/assets/komputer-regist.png" alt="Illustration">
+            <img src="resource/views/img/komputer-regist.png" alt="Illustration">
         </div>
         <div class="register-form">
             <h1>Silakan Isi formulir untuk Mendaftar!</h1>
@@ -26,8 +26,8 @@
                 <label for="alamat">Alamat:</label>
                 <input type="alamat" id="alamat" name="alamat" required>
 
-                <label for="alamat">TTL:</label>
-                <input type="date" id="alamat" name="alamat" required>
+                <label for="TTL">TTL:</label>
+                <input type="date" id="TTL" name="TTL" required>
                 
                 <label for="passwords">Password:</label>
                 <input type="passwords" id="passwords" name="passwords" required>

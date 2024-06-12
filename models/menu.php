@@ -3,10 +3,10 @@
 include_once 'app/config/db_connect.php';
 
 class Menu {
-    public static function saveMenu($nama, $deskripsi, $Jumlah_stok, $harga, $kategori) {
+    public static function saveMenu($nama, $deskripsi, $Jumlah_stok, $harga, $kategori, $namaGambarBaru) {
         global $conn;
-        $stmt = $conn->prepare("INSERT INTO menu (nama, deskripsi, Jumlah_stok, harga, kategori) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssiss", $nama, $deskripsi, $Jumlah_stok, $harga, $kategori);
+        $stmt = $conn->prepare("INSERT INTO menu (nama, deskripsi, Jumlah_stok, harga, kategori, Gambar) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssisss", $nama, $deskripsi, $Jumlah_stok, $harga, $kategori, $namaGambarBaru);
 
         if ($stmt->execute()) {
             return true;
@@ -21,13 +21,14 @@ class Menu {
     static function getAllMenu(){
         // Query untuk mengambil data dari tabel menu
         global $conn;
-        $sql = "SELECT * FROM menu";
+        $sql = "SELECT Id_menu, nama, Deskripsi, Jumlah_stok, Gambar, harga, kategori FROM menu";
 
         $result = $conn->query($sql);
         $arr = [];
 
         if($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()){
+                $row['harga'] = number_format($row['harga'], 0, ',', '.');
                 $arr[] = $row;
             }
         }
@@ -45,11 +46,11 @@ class Menu {
         }
         
     // Function untuk mengupdate data menu
-    public static function updateMenu($id, $nama, $deskripsi, $jumlah_stok, $harga, $kategori) {
+    public static function updateMenu($id, $nama, $deskripsi, $jumlah_stok, $harga, $kategori, $namaGambarBaru) {
         global $conn;
-        $sql = "UPDATE menu SET nama=?, deskripsi=?, jumlah_stok=?, harga=?, kategori=? WHERE Id_menu=?";
+        $sql = "UPDATE menu SET nama=?, deskripsi=?, jumlah_stok=?, harga=?, kategori=?, Gambar=? WHERE Id_menu=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssissi", $nama, $deskripsi, $jumlah_stok, $harga, $kategori, $id);
+        $stmt->bind_param("ssisssi", $nama, $deskripsi, $jumlah_stok, $harga, $kategori, $namaGambarBaru, $id);
         return $stmt->execute();
     }
             

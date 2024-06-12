@@ -8,6 +8,43 @@
     <link rel="stylesheet" href="/sidebar/style.css" />
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+      table {
+            margin-top:10px;
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #C5C8FF;
+            color: black;
+        }
+
+        table thead th, table thead td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:hover {
+            background-color: #d1ecf1;
+        }
+
+        table tbody td {
+            padding: 12px 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -48,7 +85,7 @@
         </li>
         <li class="profile">
           <a href="<?=urlpath('logout')?>">
-                        <i class='bx bx-log-out' id="log_out"></i>
+            <i class='bx bx-log-out' id="log_out"></i>
           </a>
         </li>
       </ul>
@@ -56,7 +93,7 @@
 
     <section class="home-section">
       <div class="container">
-        <h3>Toko Oleh-Oleh Madurasa</h3>
+        <h3>Toko Oleh-Oleh OLELO</h3>
           <p id="current-date"></p>
         <header>
           <h1>Daftar Karyawan</h1>
@@ -70,7 +107,9 @@
             <tr>
               <th>ID Karyawan</th>
               <th>Nama Karyawan</th>
+              <th>Nomor HP</th>
               <th>Asal</th>
+              <th>Tanggal Lahir</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -79,7 +118,9 @@
             <tr>
               <td> <?php echo htmlspecialchars($getKaryawan['Id_karyawan']) ?> </td>
               <td> <?php echo htmlspecialchars($getKaryawan['nama']) ?> </td>
+              <td>0<?php echo htmlspecialchars($getKaryawan['no_hp']) ?> </td>
               <td> <?php echo htmlspecialchars($getKaryawan['alamat']) ?> </td>
+              <td> <?php echo htmlspecialchars($getKaryawan['hari'])." ".htmlspecialchars($getKaryawan['bulan'])." ".htmlspecialchars($getKaryawan['tahun']) ?> </td>
               <td>    
                 <a href="<?= urlpath('hapusKaryawan-owner')."?id=".$getKaryawan['Id_karyawan']?>"><i class='bx bx-trash' style="color:red;"></i></a>
               </td>

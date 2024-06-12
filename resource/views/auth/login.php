@@ -117,7 +117,7 @@
             <p>Tidak memiliki akun? <a href="<?= urlpath('register')?>">Register</a></p>
         </div>
         <div class="illustration">
-            <!-- <img src="/assets/komputer-login.png" alt="Illustration"> -->
+            <img src="resource/views/img/komputer-login.png" alt="Illustration">
         </div>
     </div>
 </body>

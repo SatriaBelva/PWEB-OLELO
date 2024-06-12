@@ -45,7 +45,7 @@ class OwnerController{
         view('owner/laporan', ['bestSeller' => $bestSeller]);
     }
     static function daftarkaryawan(){
-        $getKaryawan     = Pesanan::getKaryawan();
+        $getKaryawan     = karyawan::getKaryawan();
         view('owner/daftarkaryawan', ['getKaryawan' => $getKaryawan]);
     }
     static function editmenu(){

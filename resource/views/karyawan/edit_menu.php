@@ -34,10 +34,10 @@
               <label for="deskripsi">Deskripsi</label>
               <textarea id="deskripsi" name="deskripsi" rows="4" required><?= htmlspecialchars($menu['Deskripsi']) ?></textarea>
           </div>
-          <!-- <div class="form-group half-width">
-              <label for="gambar-produk">Gambar Produk</label>
-              <input type="file" id="gambar-produk" name="gambar-produk" required />
-          </div> -->
+          <div class="form-group half-width">
+              <label for="gambarProduk">Gambar Produk</label>
+              <input type="file" id="gambarProduk" name="gambarProduk" required />
+          </div>
           <div class="form-group half-width">
               <label for="Jumlah_stok">Stok</label>
               <input type="number" id="Jumlah_stok" name="Jumlah_stok" required value="<?= htmlspecialchars($menu['Jumlah_stok']) ?>"/>

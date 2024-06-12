@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +8,42 @@
     <link rel="stylesheet" href="/sidebar/style.css" />
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #C5C8FF;
+            color: black;
+        }
+
+        table thead th, table thead td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:hover {
+            background-color: #d1ecf1;
+        }
+
+        table tbody td {
+            padding: 12px 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -53,7 +86,7 @@
 
     <section class="home-section">
         <div class="container">
-            <h3>Toko Oleh-Oleh Madurasa</h3>
+            <h3>Toko Oleh-Oleh OLELO</h3>
             <p id="current-date"></p>
             <header>
                 <h1>Daftar Menu OLELO</h1>
@@ -71,6 +104,7 @@
                         <td>Deskripsi</td>
                         <td>Stok</td>
                         <td>Kategori</td>
+                        <td>Gambar</td>
                         <td>Opsi</td>
                     </tr>
                 </thead>
@@ -84,6 +118,9 @@
                         <td>  <?php echo htmlspecialchars($menus['Deskripsi'])?></td>
                         <td>  <?php echo htmlspecialchars($menus['Jumlah_stok'])?></td>
                         <td>  <?php echo htmlspecialchars($menus['kategori'])?></td>
+                        <td>
+                            <img style="width: 100px; height: auto" src="uploads_dir/<?php echo $menus['Gambar']?>" alt="">
+                        </td>
                         <td>    
                             <a href="<?= urlpath('editmenu-karyawan')."?id=".$menus['Id_menu']?>"><i class='fas fa-edit'></i></a>
                         </td>

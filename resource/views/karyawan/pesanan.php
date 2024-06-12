@@ -3,34 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Pesanan - Toko Oleh-Oleh Madurasa</title>
+    <title>Daftar Pesanan - Toko Oleh-Oleh OLELO</title>
     <link rel="stylesheet" href="resource/views/css/style-karyawan.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <style>
         .container-pesanan {
             width: 100%;
             border-radius: 10px;
-            background: #AFB3FF;
+            background:  #AFB3FF;
             padding: 10px;
             margin-bottom: 20px;
             color: black;
             height: auto;
         }
         table {
+            margin-top:10px;
             width: 100%;
-
             border-collapse: collapse;
-            margin-top: 10px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+
+        table thead {
+            background-color: #C5C8FF;
+            color: black;
         }
-        th {
-            background-color: #4CAF50;
-            color: white;
+
+        table thead th, table thead td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:hover {
+            background-color: #d1ecf1;
+        }
+
+        table tbody td {
+            padding: 12px 15px;
         }
         button {
+            width: 100%;
             padding: 10px 15px;
             margin-top: 10px;
             margin-right: 10px;
@@ -95,14 +117,14 @@
       </div>
       <section class="home-section">
         <div class="container">
-          <h3>Toko Oleh-Oleh Madurasa</h3>
+          <h3>Toko Oleh-Oleh OLELO</h3>
           <h2>Daftar Pesanan Baru</h2>
           <?php foreach ($pesanan as $pesanan_item) : ?>
             <div class="container-pesanan">
                 <div>
                     <?php echo "#TR".htmlspecialchars($pesanan_item['id_transaksi']) ?><br>
                     <?php echo htmlspecialchars($pesanan_item['nama']) ?><br>
-                    <?php echo htmlspecialchars($pesanan_item['Tanggal']) ?>
+                    <?php echo htmlspecialchars($pesanan_item['hari'])." ".htmlspecialchars($pesanan_item['bulan'])." ".htmlspecialchars($pesanan_item['tahun'])." ".htmlspecialchars($pesanan_item['waktu']) ?>
                 </div>
                 <table>
                     <thead>
